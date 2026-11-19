@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>VChat</title>
+<style>
+:root{--bg:#0e1621;--panel:#17212b;--panel2:#1f2c3a;--line:#0b1118;--text:#e9eef3;--muted:#7f91a4;--accent:#5ea5e8;--in:#182533;--out:#2b5278;--green:#4fc76b;--red:#e55b5b}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:Roboto,-apple-system,"Segoe UI",Arial,sans-serif;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+.screen{position:fixed;inset:0;display:none;flex-direction:column;background:var(--bg)}
+.screen.on{display:flex}
+.top{display:flex;align-items:center;gap:10px;padding:10px 10px;background:var(--panel);min-height:56px;flex-shrink:0}
+.top h1{font-size:19px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--muted);flex-shrink:0}
+.ib:active{background:rgba(255,255,255,.08)}
+.ib svg{width:24px;height:24px}
+.body{flex:1;overflow-y:auto;padding:20px}
+.center{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.big-ic{width:88px;height:88px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin:20px 0 6px}
+.big-ic svg{width:44px;height:44px;color:#fff}
+h2{font-size:21px;font-weight:600}
+.muted{color:var(--muted);font-size:14.5px;line-height:1.45}
+.inp{width:100%;background:var(--panel2);border:1.5px solid transparent;border-radius:12px;padding:14px;font-size:17px;outline:none}
+.inp:focus{border-color:var(--accent)}
+.inp.code{text-align:center;letter-spacing:4px;font-size:22px;font-weight:600;text-transform:uppercase}
+.btn{width:100%;background:var(--accent);color:#fff;border-radius:12px;padding:14px;font-weight:600;font-size:16px}
+.btn:active{opacity:.85}.btn:disabled{opacity:.5}
+.btn.sec{background:var(--panel2);color:var(--accent)}
+.btn.danger{background:var(--panel2);color:var(--red)}
+.err{color:var(--red);font-size:14px;min-height:18px}
+.codebox{background:var(--panel2);border-radius:14px;padding:18px;width:100%}
+.codebox .c{font-size:32px;letter-spacing:5px;font-weight:700;font-family:monospace;color:#fff}
+.linkbox{background:var(--panel2);border-radius:12px;padding:12px;width:100%;font-family:monospace;font-size:13px;word-break:break-all;color:var(--accent);text-align:left}
+.warn{background:rgba(229,170,91,.12);color:#e5c27a;border-radius:12px;padding:12px;font-size:13.5px;line-height:1.4;text-align:left;width:100%}
+.row2{display:flex;gap:10px;width:100%}
+/* list */
+.list{flex:1;overflow-y:auto}
+.row{display:flex;gap:12px;padding:10px 14px;align-items:center}
+.row:active{background:var(--panel)}
+.av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:600;font-size:19px;flex-shrink:0}
+.av.sm{width:40px;height:40px;font-size:16px}
+.mid{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.l1,.l2{display:flex;gap:6px;align-items:center}
+.name{font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.time{font-size:12.5px;color:var(--muted)}
+.last{flex:1;color:var(--muted);font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{background:var(--accent);color:#fff;border-radius:11px;min-width:22px;height:22px;padding:0 7px;font-size:12.5px;font-weight:600;display:grid;place-items:center}
+.bottom{display:flex;gap:10px;padding:12px 14px;background:var(--panel)}
+.empty{padding:50px 26px}
+/* chat */
+.chead{flex:1;min-width:0;display:flex;align-items:center;gap:10px}
+.chead .n{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chead .s{font-size:13px;color:var(--muted)}
+.chead .s.on{color:var(--accent)}
+.msgs{flex:1;overflow-y:auto;padding:10px 8px 6px;display:flex;flex-direction:column;gap:3px}
+.sys{align-self:center;background:rgba(0,0,0,.35);color:#cfd8e2;font-size:12.5px;padding:4px 11px;border-radius:12px;margin:6px 0;text-align:center;max-width:90%}
+.m{max-width:82%;padding:6px 9px 6px 10px;border-radius:14px;line-height:1.35;font-size:15.5px;word-wrap:break-word;white-space:pre-wrap}
+.m.in{align-self:flex-start;background:var(--in);border-bottom-left-radius:4px}
+.m.out{align-self:flex-end;background:var(--out);border-bottom-right-radius:4px}
+.m .who{font-size:13.5px;font-weight:600;color:var(--accent);margin-bottom:1px}
+.meta{float:right;margin:6px 0 -4px 10px;font-size:11.5px;color:rgba(255,255,255,.5);white-space:nowrap}
+.m.out .meta{color:#8fb6dd}
+.comp{display:flex;align-items:flex-end;gap:6px;padding:6px;background:var(--panel)}
+.comp textarea{flex:1;background:var(--panel2);border:0;border-radius:22px;padding:11px 16px;font-size:16px;outline:none;resize:none;max-height:120px;min-height:44px}
+.send{width:46px;height:46px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;flex-shrink:0}
+.send svg{width:22px;height:22px}
+.send:disabled{opacity:.4}
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:8}
+.scrim.on{display:block}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:var(--panel);border-radius:16px 16px 0 0;padding:10px 0 14px;transform:translateY(110%);transition:transform .22s;z-index:9}
+.sheet.on{transform:none}
+.sheet button{display:flex;gap:14px;align-items:center;width:100%;padding:14px 20px;font-size:16px;text-align:left}
+.sheet button:active{background:var(--panel2)}
+.sheet button.red{color:var(--red)}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);z-index:20;padding:24px}
+.modal.on{display:flex}
+.modal .box{background:var(--panel);border-radius:16px;padding:20px;width:100%;max-width:360px;display:flex;flex-direction:column;gap:14px}
+.modal .box p{color:var(--muted);line-height:1.45;font-size:15px}
+.spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:inline-block;vertical-align:middle}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<!-- 1. Ism -->
+<section class="screen" id="s-setup">
+  <div class="body center">
+    <div class="big-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+    <h2>VChat — maxfiy chat</h2>
+    <p class="muted">Xabarlar kod bilan shifrlanadi. Kodni bilmagan hech kim, hatto server ham ularni o'qiy olmaydi.</p>
+    <input class="inp" id="setupName" placeholder="Ismingiz" maxlength="30">
+    <button class="btn" id="setupGo">Boshlash</button>
+  </div>
+</section>
+
+<!-- 2. Chatlar ro'yxati -->
+<section class="screen" id="s-home">
+  <div class="top"><h1>VChat 🔒</h1><button class="ib" id="homeName" aria-label="Ism"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button></div>
+  <div class="list" id="rows"></div>
+  <div class="bottom">
+    <button class="btn" id="goCreate">+ Yangi chat</button>
+    <button class="btn sec" id="goJoin">Qo'shilish</button>
+  </div>
+</section>
+
+<!-- 3. Yangi chat -->
+<section class="screen" id="s-create">
+  <div class="top"><button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><h1>Yangi maxfiy chat</h1></div>
+  <div class="body center">
+    <p class="muted" style="margin-top:10px">Chatga nom bering. Nom ham shifrlanadi va faqat kodni bilganlarga ko'rinadi.</p>
+    <input class="inp" id="createName" placeholder="Masalan: Men va Aziz" maxlength="40">
+    <button class="btn" id="createGo">Yaratish</button>
+    <div class="err" id="createErr"></div>
+  </div>
+</section>
+
+<!-- 4. Yaratildi: kod + havola -->
+<section class="screen" id="s-created">
+  <div class="top"><button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><h1>Chat yaratildi</h1></div>
+  <div class="body center">
+    <p class="muted">Chat kodi — uni eslab qoling yoki saqlang:</p>
+    <div class="codebox"><div class="c" id="crCode"></div></div>
+    <button class="btn sec" id="crCopyCode">Kodni nusxalash</button>
+    <p class="muted" style="margin-top:6px">Do'stingizga yuboriladigan taklif havolasi:</p>
+    <div class="linkbox" id="crLink"></div>
+    <div class="row2"><button class="btn" id="crShare">Havolani ulashish</button><button class="btn sec" id="crCopyLink">Nusxalash</button></div>
+    <div class="warn">⚠️ Havola va kodni <b>alohida</b> yuboring: havolani Telegram orqali, kodni esa og'zaki yoki boshqa yo'l bilan ayting. Shunda havola begona qo'lga tushsa ham chatni ocha olmaydi.<br><br>⏳ Do'stingiz <b>12 soat ichida</b> qo'shilishi kerak (server xabarlarni shuncha vaqt saqlaydi).</div>
+    <button class="btn" id="crNext">Davom etish — kodni kiritish</button>
+  </div>
+</section>
+
+<!-- 5. Kodni kiritish (ochish) -->
+<section class="screen" id="s-unlock">
+  <div class="top"><button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><h1 id="unTitle">Kodni kiriting</h1></div>
+  <div class="body center">
+    <div class="big-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+    <p class="muted" id="unText">Chatni ochish uchun 8 belgili kodni kiriting.</p>
+    <input class="inp code" id="unCode" placeholder="XXXX-XXXX" maxlength="9" autocomplete="off" autocapitalize="characters">
+    <button class="btn" id="unGo">Ochish</button>
+    <div class="err" id="unErr"></div>
+  </div>
+</section>
+
+<!-- 6. Qo'shilish -->
+<section class="screen" id="s-join">
+  <div class="top"><button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><h1>Chatga qo'shilish</h1></div>
+  <div class="body center">
+    <p class="muted" style="margin-top:10px">Do'stingiz yuborgan taklif havolasini qo'ying:</p>
+    <div class="row2"><input class="inp" id="joinLink" placeholder="Taklif havolasi" autocomplete="off" style="flex:1;font-size:15px"><button class="btn sec" id="joinPaste" style="width:auto;padding:0 16px">Qo'yish</button></div>
+    <p class="muted">Va do'stingiz aytgan kodni kiriting:</p>
+    <input class="inp code" id="joinCode" placeholder="XXXX-XXXX" maxlength="9" autocomplete="off" autocapitalize="characters">
+    <button class="btn" id="joinGo">Chatga kirish</button>
+    <div class="err" id="joinErr"></div>
+  </div>
+</section>
+
+<!-- 7. Chat -->
+<section class="screen" id="s-chat">
+  <div class="top">
+    <button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <div class="chead"><div class="av sm" id="chAv"></div><div style="min-width:0"><div class="n" id="chName"></div><div class="s" id="chStat"></div></div></div>
+    <button class="ib" id="chMenu"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
+  </div>
+  <div class="msgs" id="msgs"></div>
+  <div class="comp">
+    <textarea id="txt" rows="1" placeholder="Xabar" maxlength="1500"></textarea>
+    <button class="send" id="sendBtn" disabled><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"/></svg></button>
+  </div>
+</section>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet">
+  <button id="mInvite">🔗 Taklif havolasini ulashish</button>
+  <button id="mCode">🔑 Kodni ko'rsatish</button>
+  <button id="mRename">✏️ Chat nomini o'zgartirish</button>
+  <button id="mDelete" class="red">🗑 Chatni telefondan o'chirish</button>
+</div>
+
+<div class="modal" id="modal"><div class="box"><h2 id="moT"></h2><p id="moP"></p><input class="inp" id="moI" style="display:none"><div class="row2" id="moB"></div></div></div>
+
+<script src="core.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const V=window.VCore;
+const OWNER='__OWNER__', REPO='__REPO__';
+const CONFIGURED=!OWNER.startsWith('__');
+const APK_URL=CONFIGURED?`https://github.com/${OWNER}/${REPO}/releases/latest/download/vchat.apk`:'';
+const COLORS=['#e17076','#7bc862','#e5ca77','#65aadd','#a695e7','#ee7aae','#6ec9cb','#faa774'];
+const HOUR=3600e3;
+
+/* ---------- saqlash ---------- */
+let st={me:null,rooms:{}};
+try{const s=JSON.parse(localStorage.getItem('vchat')||'null');if(s&&s.rooms)st=s}catch(e){}
+function save(){try{localStorage.setItem('vchat',JSON.stringify(st))}catch(e){}}
+
+function inviteLink(room){return CONFIGURED?`https://${OWNER}.github.io/${REPO}/#${room}`:'vchat://join/'+room}
+function shareText(room){
+  let t=`🔒 VChat maxfiy chatiga taklif:\n${inviteLink(room)}`;
+  if(APK_URL)t+=`\n\nIlova o'rnatilmagan bo'lsa, avval yuklab oling:\n${APK_URL}`;
+  return t+`\n\nKodni sizga alohida aytaman.`;
+}
+const native=window.Android||null;
+function toast(s){if(native)native.toast(s);else console.log(s)}
+function copy(s,msg){if(native)native.copy(s);else navigator.clipboard&&navigator.clipboard.writeText(s).catch(()=>{});toast(msg||'Nusxalandi')}
+function share(s){if(native)native.share(s);else copy(s)}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function colorOf(id){let h=0;for(const c of id)h=(h*31+c.charCodeAt(0))>>>0;return COLORS[h%COLORS.length]}
+function initials(n){return (n||'?').replace(/[^\p{L}\p{N}\s]/gu,'').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase()||'🔒'}
+function hm(ts){const d=new Date(ts);return d.toTimeString().slice(0,5)}
+function when(ts){const d=new Date(ts),t=new Date();if(d.toDateString()===t.toDateString())return hm(ts);return d.toLocaleDateString('uz',{day:'numeric',month:'short'})}
+
+/* ---------- navigatsiya ---------- */
+let screen='', stack=[];
+function show(id,push=true){
+  if(push&&screen&&screen!==id)stack.push(screen);
+  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id==='s-'+id));
+  screen=id;
+  if(id==='home'){stack=[];renderHome()}
+  if(id!=='chat')curRoom=null;
+}
+function back(){
+  if($('#modal').classList.contains('on')){closeModal();return true}
+  if($('#sheet').classList.contains('on')){closeSheet();return true}
+  if(screen==='home'||screen==='setup')return false;
+  let prev=stack.pop()||'home';
+  if(prev==='created'||prev==='unlock'||prev==='create'||prev==='join')prev='home';
+  show(prev,false);return true;
+}
+window.handleBack=back;
+document.querySelectorAll('[data-back]').forEach(b=>b.onclick=back);
+
+/* ---------- modal ---------- */
+function modal({title,text,input,buttons}){
+  $('#moT').textContent=title||'';$('#moP').innerHTML=text||'';
+  const i=$('#moI');i.style.display=input!=null?'block':'none';i.value=input||'';
+  const b=$('#moB');b.innerHTML='';
+  buttons.forEach(x=>{const e=document.createElement('button');e.className='btn '+(x.cls||'');e.textContent=x.label;e.onclick=()=>{closeModal();x.fn&&x.fn(i.value)};b.appendChild(e)});
+  $('#modal').classList.add('on');if(input!=null)setTimeout(()=>i.focus(),50);
+}
+function closeModal(){$('#modal').classList.remove('on')}
+
+/* ---------- 1. ism ---------- */
+$('#setupGo').onclick=()=>{
+  const n=$('#setupName').value.trim();if(!n){$('#setupName').focus();return}
+  st.me={id:V.newId(),name:n};save();show('home',false);handlePending();
+};
+$('#homeName').onclick=()=>modal({title:'Ismingiz',text:'Chatdagilar sizni shu ism bilan ko\'radi.',input:st.me.name,buttons:[{label:'Bekor',cls:'sec'},{label:'Saqlash',fn:v=>{if(v.trim()){st.me.name=v.trim();save()}}}]});
+
+/* ---------- 2. ro'yxat ---------- */
+function renderHome(){
+  const rooms=Object.values(st.rooms).sort((a,b)=>(b.lastTs||b.created)-(a.lastTs||a.created));
+  const el=$('#rows');
+  if(!rooms.length){el.innerHTML=`<div class="empty center"><div class="big-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h2>Hali chat yo'q</h2><p class="muted">Yangi maxfiy chat yarating va do'stingizga havola yuboring, yoki do'stingiz yuborgan havola orqali qo'shiling.</p></div>`;return}
+  el.innerHTML=rooms.map(r=>{const m=r.msgs[r.msgs.length-1];const last=m?(m.from===st.me.id?'Siz: ':(m.name?m.name+': ':''))+m.text:(r.unlocked?'Hali xabar yo\'q':'🔑 Kod kiritilmagan');
+    return `<div class="row" data-r="${r.id}"><div class="av" style="background:${colorOf(r.id)}">${esc(initials(r.name))}</div><div class="mid"><div class="l1"><span class="name">🔒 ${esc(r.name)}</span><span class="time">${when(r.lastTs||r.created)}</span></div><div class="l2"><span class="last">${esc(last)}</span>${r.unread?`<span class="badge">${r.unread}</span>`:''}</div></div></div>`}).join('');
+}
+$('#rows').onclick=e=>{const r=e.target.closest('.row');if(r)openRoom(r.dataset.r)};
+$('#goCreate').onclick=()=>{$('#createName').value='';$('#createErr').textContent='';show('create')};
+$('#goJoin').onclick=()=>openJoin('');
+
+/* ---------- 3-4. yaratish ---------- */
+$('#createGo').onclick=async()=>{
+  const name=$('#createName').value.trim()||'Maxfiy chat';
+  const btn=$('#createGo');btn.disabled=true;btn.innerHTML='<span class="spin"></span>';$('#createErr').textContent='';
+  const id=V.newRoomId(),code=V.newCode();
+  try{
+    await V.publish(id,code,{t:'hello',chatName:name,from:st.me.id,name:st.me.name,ts:Date.now()});
+    st.rooms[id]={id,name,code,created:Date.now(),creator:true,unlocked:false,msgs:[],unread:0,lastSrv:Date.now()};save();
+    $('#crCode').textContent=V.prettyCode(code);$('#crLink').textContent=inviteLink(id);createdRoom=id;
+    show('created');
+  }catch(e){$('#createErr').textContent='Internetga ulanib bo\'lmadi. Qayta urinib ko\'ring.'}
+  btn.disabled=false;btn.textContent='Yaratish';
+};
+let createdRoom=null;
+$('#crCopyCode').onclick=()=>copy(V.prettyCode(st.rooms[createdRoom].code),'Kod nusxalandi');
+$('#crCopyLink').onclick=()=>copy(shareText(createdRoom),'Havola nusxalandi');
+$('#crShare').onclick=()=>share(shareText(createdRoom));
+$('#crNext').onclick=()=>{stack=[];openUnlock(createdRoom)};
+
+/* ---------- 5. kod bilan ochish (yaratuvchi) ---------- */
+let unlockRoom=null;
+function openUnlock(id){
+  unlockRoom=id;const r=st.rooms[id];
+  $('#unTitle').textContent=r.name;$('#unCode').value='';$('#unErr').textContent='';
+  show('unlock');setTimeout(()=>$('#unCode').focus(),100);
+}
+$('#unGo').onclick=()=>{
+  const r=st.rooms[unlockRoom];
+  if(V.normCode($('#unCode').value)!==V.normCode(r.code)){$('#unErr').textContent='Kod noto\'g\'ri';return}
+  r.unlocked=true;save();stack=[];openRoom(r.id);
+};
+$('#unCode').onkeydown=e=>{if(e.key==='Enter')$('#unGo').click()};
+
+/* ---------- 6. qo'shilish ---------- */
+function openJoin(link){
+  $('#joinLink').value=link||'';$('#joinCode').value='';$('#joinErr').textContent='';
+  show('join');setTimeout(()=>(link?$('#joinCode'):$('#joinLink')).focus(),100);
+}
+$('#joinPaste').onclick=()=>{const t=native?native.paste():'';if(t)$('#joinLink').value=t.trim();else toast('Buferda matn yo\'q')};
+$('#joinCode').onkeydown=e=>{if(e.key==='Enter')$('#joinGo').click()};
+$('#joinGo').onclick=async()=>{
+  const err=$('#joinErr');err.textContent='';
+  const id=V.parseRoom($('#joinLink').value);
+  if(!id){err.textContent='Havola noto\'g\'ri. Do\'stingiz yuborgan havolani to\'liq qo\'ying.';return}
+  const code=V.normCode($('#joinCode').value);
+  if(code.length!==8){err.textContent='Kod 8 ta belgidan iborat bo\'lishi kerak';return}
+  if(st.rooms[id]){st.rooms[id].unlocked=true;save();openRoom(id);return}
+  const btn=$('#joinGo');btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
+  try{
+    const res=await V.verify(id,code);
+    if(res.status==='wrong'){err.textContent='Kod noto\'g\'ri. Do\'stingizdan kodni qayta so\'rang.'}
+    else if(res.status==='ok'){finishJoin(id,code,res.payload.chatName||'Maxfiy chat')}
+    else modal({title:'Chat topilmadi',text:'Serverda bu chatning xabarlari yo\'q: havola 12 soatdan eski bo\'lishi mumkin. Shu sababli kodni tekshirib bo\'lmadi.<br><br>Baribir kirsangiz va kod noto\'g\'ri bo\'lsa, do\'stingizning xabarlari ko\'rinmaydi.',buttons:[{label:'Bekor',cls:'sec'},{label:'Baribir kirish',fn:()=>finishJoin(id,code,'Maxfiy chat')}]});
+  }catch(e){err.textContent='Internetga ulanib bo\'lmadi. Qayta urinib ko\'ring.'}
+  btn.disabled=false;btn.textContent='Chatga kirish';
+};
+async function finishJoin(id,code,name){
+  st.rooms[id]={id,name,code,created:Date.now(),creator:false,unlocked:true,msgs:[],unread:0,lastSrv:0};save();
+  subscribeRoom(id);
+  stack=[];openRoom(id);
+  try{await V.publish(id,code,{t:'join',from:st.me.id,name:st.me.name,ts:Date.now()})}catch(e){}
+}
+
+/* ---------- deep link ---------- */
+let pending=null;
+window.onDeepLink=url=>{pending=url;if(st.me)handlePending()};
+function handlePending(){
+  if(!pending)return;const id=V.parseRoom(pending);pending=null;
+  if(!id){toast('Havola noto\'g\'ri');return}
+  if(st.rooms[id])openRoom(id);else openJoin(inviteLink(id));
+}
+
+/* ---------- server obunasi ---------- */
+const subs={};
+function subscribeRoom(id){
+  const r=st.rooms[id];if(!r||subs[id])return;
+  subs[id]=V.subscribe(id,r.code,'all',(p,ev)=>onPayload(id,p,ev),ok=>{if(curRoom===id)setStat(ok)});
+}
+function onPayload(id,p,ev){
+  const r=st.rooms[id];if(!r)return;
+  r.lastSrv=Math.max(r.lastSrv||0,ev.time*1000);
+  if(p.t==='hello'&&p.chatName&&!r.creator&&r.name==='Maxfiy chat'){r.name=p.chatName;if(curRoom===id)$('#chName').textContent=r.name}
+  if(p.t==='join'&&p.from!==st.me.id){addSys(r,`${p.name||'Kimdir'} chatga qo'shildi`,p.id||('j'+ev.id),ev.time*1000)}
+  if(p.t==='msg'){
+    const ex=r.msgs.find(m=>m.id===p.id);
+    if(ex){if(ex.pending){ex.pending=false;if(curRoom===id)renderMsgs()}}
+    else{
+      r.msgs.push({id:p.id,from:p.from,name:p.name,text:String(p.text||'').slice(0,4000),ts:p.ts||ev.time*1000});
+      r.msgs.sort((a,b)=>a.ts-b.ts);
+      if(r.msgs.length>1000)r.msgs.splice(0,r.msgs.length-1000);
+      r.lastTs=Math.max(r.lastTs||0,p.ts||0);
+      if(curRoom===id)renderMsgs();else if(p.from!==st.me.id)r.unread=(r.unread||0)+1;
+    }
+  }
+  save();if(screen==='home')renderHome();
+}
+function addSys(r,text,id,ts){
+  if(r.msgs.find(m=>m.id===id))return;
+  r.msgs.push({id,sys:true,text,ts});r.msgs.sort((a,b)=>a.ts-b.ts);
+  if(curRoom===r.id)renderMsgs();
+}
+
+/* ---------- 7. chat ---------- */
+let curRoom=null;
+function openRoom(id){
+  const r=st.rooms[id];if(!r)return;
+  if(!r.unlocked){openUnlock(id);return}
+  curRoom=id;r.unread=0;save();
+  $('#chAv').style.background=colorOf(id);$('#chAv').textContent=initials(r.name);$('#chName').textContent=r.name;
+  setStat(true);show('chat');renderMsgs();subscribeRoom(id);
+  // server 12 soat saqlaydi — chat "tirik" qolishi uchun yashirin belgi yuboramiz
+  if(Date.now()-(r.lastSrv||0)>6*HOUR)V.publish(id,r.code,{t:'ping',from:st.me.id,ts:Date.now()}).then(()=>{r.lastSrv=Date.now();save()}).catch(()=>{});
+}
+function setStat(ok){const s=$('#chStat');s.textContent=ok?'🔒 uchidan-uchiga shifrlangan':'ulanmoqda…';s.className='s'+(ok?' on':'')}
+function renderMsgs(){
+  const r=st.rooms[curRoom];if(!r)return;const el=$('#msgs');
+  let h=`<div class="sys">🔒 Bu chatdagi xabarlar kod bilan shifrlangan. Kodni hech kimga bermang.</div>`;
+  let lastDay='';
+  for(const m of r.msgs){
+    const day=new Date(m.ts).toDateString();
+    if(day!==lastDay){lastDay=day;h+=`<div class="sys">${day===new Date().toDateString()?'Bugun':new Date(m.ts).toLocaleDateString('uz',{day:'numeric',month:'long'})}</div>`}
+    if(m.sys){h+=`<div class="sys">${esc(m.text)}</div>`;continue}
+    const out=m.from===st.me.id;
+    h+=`<div class="m ${out?'out':'in'}">${!out&&m.name?`<div class="who" style="color:${colorOf(m.from||'x')}">${esc(m.name)}</div>`:''}${esc(m.text)}<span class="meta">${hm(m.ts)}${out?(m.pending?' 🕓':' ✓'):''}</span></div>`;
+  }
+  el.innerHTML=h;el.scrollTop=el.scrollHeight;
+}
+const txt=$('#txt'),sb=$('#sendBtn');
+txt.oninput=()=>{sb.disabled=!txt.value.trim();txt.style.height='auto';txt.style.height=Math.min(txt.scrollHeight,120)+'px'};
+sb.onclick=async()=>{
+  const text=txt.value.trim();if(!text||!curRoom)return;
+  const r=st.rooms[curRoom];
+  const m={id:V.newId(),from:st.me.id,name:st.me.name,text,ts:Date.now(),pending:true};
+  r.msgs.push(m);r.lastTs=m.ts;save();renderMsgs();
+  txt.value='';txt.oninput();txt.focus();
+  try{await V.publish(r.id,r.code,{t:'msg',id:m.id,from:m.from,name:m.name,text:m.text,ts:m.ts});r.lastSrv=Date.now()}
+  catch(e){toast('Yuborilmadi — internetni tekshiring');m.failed=true}
+  save();
+};
+
+/* chat menyusi */
+function openSheet(){$('#sheet').classList.add('on');$('#scrim').classList.add('on')}
+function closeSheet(){$('#sheet').classList.remove('on');$('#scrim').classList.remove('on')}
+$('#chMenu').onclick=openSheet;$('#scrim').onclick=closeSheet;
+$('#mInvite').onclick=()=>{closeSheet();share(shareText(curRoom))};
+$('#mCode').onclick=()=>{closeSheet();const c=V.prettyCode(st.rooms[curRoom].code);modal({title:'Chat kodi',text:`<span style="font-size:28px;letter-spacing:4px;font-weight:700;color:#fff;font-family:monospace">${c}</span><br><br>Kodni faqat ishonchli odamga ayting.`,buttons:[{label:'Yopish',cls:'sec'},{label:'Nusxalash',fn:()=>copy(c,'Kod nusxalandi')}]})};
+$('#mRename').onclick=()=>{closeSheet();const r=st.rooms[curRoom];modal({title:'Chat nomi',text:'Nom faqat sizning telefoningizda o\'zgaradi.',input:r.name,buttons:[{label:'Bekor',cls:'sec'},{label:'Saqlash',fn:v=>{if(v.trim()){r.name=v.trim();save();$('#chName').textContent=r.name;$('#chAv').textContent=initials(r.name)}}}]})};
+$('#mDelete').onclick=()=>{closeSheet();modal({title:'Chatni o\'chirish?',text:'Chat va uning xabarlari faqat sizning telefoningizdan o\'chiriladi.',buttons:[{label:'Bekor',cls:'sec'},{label:'O\'chirish',cls:'danger',fn:()=>{const id=curRoom;subs[id]&&subs[id].close();delete subs[id];delete st.rooms[id];save();show('home',false)}}]})};
+
+/* ---------- start ---------- */
+if(!st.me)show('setup',false);
+else{show('home',false);Object.keys(st.rooms).forEach(id=>{if(st.rooms[id].unlocked)subscribeRoom(id)})}
+</script>
+</body>
+</html>

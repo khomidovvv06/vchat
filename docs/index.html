@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VChat — maxfiy chatga taklif</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0e1621;color:#e9eef3;font-family:Roboto,-apple-system,"Segoe UI",Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.c{max-width:380px;width:100%;text-align:center;display:flex;flex-direction:column;gap:16px;align-items:center}
+.ic{width:88px;height:88px;border-radius:50%;background:#3e8fd8;display:grid;place-items:center}
+.ic svg{width:44px;height:44px;color:#fff}
+h1{font-size:22px}
+p{color:#7f91a4;line-height:1.5;font-size:15px}
+a.b{display:block;width:100%;padding:15px;border-radius:12px;background:#3e8fd8;color:#fff;font-weight:600;text-decoration:none;font-size:16px}
+a.b.s{background:#1f2c3a;color:#5ea5e8}
+ol{text-align:left;color:#7f91a4;font-size:14px;line-height:1.6;padding-left:20px}
+</style>
+</head>
+<body>
+<div class="c">
+  <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+  <h1>Sizni maxfiy chatga taklif qilishdi</h1>
+  <p id="t">Chatga kirish uchun VChat ilovasi va do'stingiz aytgan kod kerak.</p>
+  <a class="b" id="open" href="#">VChat'da ochish</a>
+  <a class="b s" id="apk" href="#">Ilovani yuklab olish (APK)</a>
+  <ol>
+    <li>Ilova o'rnatilmagan bo'lsa, avval APK'ni yuklab oling va o'rnating.</li>
+    <li>Keyin shu sahifaga qaytib, "VChat'da ochish" tugmasini bosing.</li>
+    <li>Do'stingiz aytgan 8 belgili kodni kiriting.</li>
+  </ol>
+</div>
+<script>
+const room=(location.hash.match(/^#([a-z2-7]{16})$/)||[])[1];
+const owner=location.hostname.split('.')[0];
+const repo=location.pathname.split('/').filter(Boolean)[0]||'';
+const apk=`https://github.com/${owner}/${repo}/releases/latest/download/vchat.apk`;
+document.getElementById('apk').href=apk;
+if(!room){document.getElementById('t').textContent='Havola noto\'g\'ri yoki to\'liq emas. Do\'stingizdan havolani qayta so\'rang.';document.getElementById('open').style.display='none'}
+else{
+  const intent=`intent://join/${room}#Intent;scheme=vchat;package=uz.vchat.secret;end`;
+  const open=document.getElementById('open');open.href=intent;
+  setTimeout(()=>{location.href=intent},400);
+}
+</script>
+</body>
+</html>

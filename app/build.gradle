@@ -1,0 +1,51 @@
+plugins {
+    id 'com.android.application'
+}
+
+def vc = (project.findProperty('vc') ?: '1').toString().toInteger()
+
+android {
+    namespace 'uz.vchat.secret'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'uz.vchat.secret'
+        minSdk 26
+        targetSdk 34
+        versionCode vc
+        versionName "1.0.${vc}"
+    }
+
+    signingConfigs {
+        fixed {
+            storeFile file('vchat.keystore')
+            storePassword 'vchatpass'
+            keyAlias 'vchat'
+            keyPassword 'vchatpass'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.fixed
+        }
+        debug {
+            signingConfig signingConfigs.fixed
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation 'androidx.webkit:webkit:1.11.0'
+}
