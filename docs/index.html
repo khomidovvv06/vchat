@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VChat — maxfiy chatga taklif</title>
+<title>VChat — shifrlangan messenjer</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0e1621;color:#e9eef3;font-family:Roboto,-apple-system,"Segoe UI",Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
@@ -13,37 +13,25 @@ body{background:#0e1621;color:#e9eef3;font-family:Roboto,-apple-system,"Segoe UI
 h1{font-size:22px}
 p{color:#7f91a4;line-height:1.5;font-size:15px}
 a.b{display:block;width:100%;padding:15px;border-radius:12px;background:#3e8fd8;color:#fff;font-weight:600;text-decoration:none;font-size:16px}
-a.b.s{background:#1f2c3a;color:#5ea5e8}
 ol{text-align:left;color:#7f91a4;font-size:14px;line-height:1.6;padding-left:20px}
 </style>
 </head>
 <body>
 <div class="c">
   <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-  <h1>Sizni maxfiy chatga taklif qilishdi</h1>
-  <p id="t">Chatga kirish uchun VChat ilovasi va do'stingiz aytgan kod kerak.</p>
-  <a class="b" id="open" href="#">VChat'da ochish</a>
-  <a class="b s" id="apk" href="#">Ilovani yuklab olish (APK)</a>
+  <h1>VChat</h1>
+  <p>Xabarlar, ovozli xabarlar va qo'ng'iroqlar uchidan-uchiga shifrlangan messenjer.</p>
+  <a class="b" id="apk" href="#">Android uchun yuklab olish (APK)</a>
   <ol>
-    <li>Ilova o'rnatilmagan bo'lsa, avval APK'ni yuklab oling va o'rnating.</li>
-    <li>Keyin shu sahifaga qaytib, "VChat'da ochish" tugmasini bosing.</li>
-    <li>Do'stingiz aytgan 8 belgili kodni kiriting.</li>
+    <li>APK'ni yuklab oling va o'rnating (telefon so'rasa, "noma'lum manbalar"ga ruxsat bering).</li>
+    <li>Ilovani ochib, Google akkauntingiz bilan kiring.</li>
+    <li>Do'stingizni Gmail manzili orqali toping.</li>
   </ol>
 </div>
 <script>
-const room=(location.hash.match(/^#([a-z2-7]{16})$/)||[])[1];
 const owner=location.hostname.split('.')[0];
 const repo=location.pathname.split('/').filter(Boolean)[0]||'';
-const apk=`https://github.com/${owner}/${repo}/releases/latest/download/vchat.apk`;
-document.getElementById('apk').href=apk;
-if(!room){document.getElementById('t').textContent='Havola noto\'g\'ri yoki to\'liq emas. Do\'stingizdan havolani qayta so\'rang.';document.getElementById('open').style.display='none'}
-else{
-  const back=location.origin+location.pathname+'?noapp=1#'+room;
-  const intent=`intent://join/${room}#Intent;scheme=vchat;package=uz.vchat.secret;S.browser_fallback_url=${encodeURIComponent(back)};end`;
-  document.getElementById('open').href=intent;
-  if(location.search.includes('noapp')){document.getElementById('t').textContent='VChat ilovasi topilmadi. Avval APK’ni yuklab oling va o‘rnating, keyin “VChat’da ochish” tugmasini bosing.';}
-  else setTimeout(()=>{location.href=intent},400);
-}
+document.getElementById('apk').href=`https://github.com/${owner}/${repo}/releases/latest/download/vchat.apk`;
 </script>
 </body>
 </html>
