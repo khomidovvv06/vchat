@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -27,10 +29,15 @@ public class MainActivity extends Activity {
     private WebView web;
     private String pendingLink;
     private boolean loaded = false;
+    private long stoppedAt = 0;
+    private static final long LOCK_AFTER_MS = 15000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Skrinshot va ekran yozishni taqiqlash, "so'nggi ilovalar"da ham ko'rinmaydi
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         web = new WebView(this);
         setContentView(web);
@@ -105,7 +112,20 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (web != null) web.onResume();
+        if (web != null) {
+            web.onResume();
+            // Ilova 15 soniyadan ko'p yopiq turgan bo'lsa, PIN so'raladi
+            if (stoppedAt > 0 && SystemClock.elapsedRealtime() - stoppedAt > LOCK_AFTER_MS) {
+                web.evaluateJavascript("window.lockApp && window.lockApp()", null);
+            }
+        }
+        stoppedAt = 0;
+    }
+
+    @Override
+    protected void onStop() {
+        stoppedAt = SystemClock.elapsedRealtime();
+        super.onStop();
     }
 
     @Override
