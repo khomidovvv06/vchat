@@ -33,7 +33,7 @@ jobs:
         env:
           KS: ${{ secrets.KEYSTORE_B64 }}
         run: |
-          if [ -z "$KS" ]; then echo "::error::KEYSTORE_B64 secret qo'shilmagan"; exit 1; fi
+          if [ -z "$KS" ]; then echo "::error::KEYSTORE_B64 secret qo'shilmagan (Settings -> Secrets and variables -> Actions)"; exit 1; fi
           echo "$KS" | base64 -d > "$RUNNER_TEMP/vchat.keystore"
           echo "KEYSTORE_FILE=$RUNNER_TEMP/vchat.keystore" >> "$GITHUB_ENV"
 
@@ -57,3 +57,33 @@ jobs:
           body: "Telefoningizga vchat.apk faylini yuklab oling va o'rnating."
           files: vchat.apk
           make_latest: true
+
+  # iPhone/veb versiyasi: docs/ + ilova fayllari GitHub Pages'ga avtomatik joylanadi
+  pages:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Saytni tayyorlash
+        run: |
+          OWNER="${GITHUB_REPOSITORY_OWNER,,}"
+          REPO="${GITHUB_REPOSITORY#*/}"
+          mkdir -p _site/app
+          cp -r docs/. _site/
+          cp -r app/src/main/assets/www/. _site/app/
+          sed -i "s|__OWNER__|$OWNER|g; s|__REPO__|$REPO|g" _site/app/index.html
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
