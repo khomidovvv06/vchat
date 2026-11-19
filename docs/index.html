@@ -38,9 +38,11 @@ const apk=`https://github.com/${owner}/${repo}/releases/latest/download/vchat.ap
 document.getElementById('apk').href=apk;
 if(!room){document.getElementById('t').textContent='Havola noto\'g\'ri yoki to\'liq emas. Do\'stingizdan havolani qayta so\'rang.';document.getElementById('open').style.display='none'}
 else{
-  const intent=`intent://join/${room}#Intent;scheme=vchat;package=uz.vchat.secret;end`;
-  const open=document.getElementById('open');open.href=intent;
-  setTimeout(()=>{location.href=intent},400);
+  const back=location.origin+location.pathname+'?noapp=1#'+room;
+  const intent=`intent://join/${room}#Intent;scheme=vchat;package=uz.vchat.secret;S.browser_fallback_url=${encodeURIComponent(back)};end`;
+  document.getElementById('open').href=intent;
+  if(location.search.includes('noapp')){document.getElementById('t').textContent='VChat ilovasi topilmadi. Avval APK’ni yuklab oling va o‘rnating, keyin “VChat’da ochish” tugmasini bosing.';}
+  else setTimeout(()=>{location.href=intent},400);
 }
 </script>
 </body>
