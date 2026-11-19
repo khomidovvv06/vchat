@@ -18,19 +18,17 @@ android {
 
     signingConfigs {
         fixed {
-            storeFile file('vchat.keystore')
-            storePassword 'vchatpass'
+            // Kalit repoda saqlanmaydi: GitHub Secrets'dan (KEYSTORE_B64, KEYSTORE_PASS) olinadi
+            storeFile file(System.getenv('KEYSTORE_FILE') ?: 'missing.keystore')
+            storePassword System.getenv('KEYSTORE_PASS') ?: ''
             keyAlias 'vchat'
-            keyPassword 'vchatpass'
+            keyPassword System.getenv('KEYSTORE_PASS') ?: ''
         }
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.fixed
-        }
-        debug {
             signingConfig signingConfigs.fixed
         }
     }
