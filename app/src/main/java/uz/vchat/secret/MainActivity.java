@@ -1,6 +1,28 @@
 package uz.vchat.secret;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.os.CancellationSignal;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.webkit.PermissionRequest;
+import android.webkit.WebChromeClient;
+
+import androidx.credentials.Credential;
+import androidx.credentials.CredentialManager;
+import androidx.credentials.CredentialManagerCallback;
+import androidx.credentials.CustomCredential;
+import androidx.credentials.GetCredentialRequest;
+import androidx.credentials.GetCredentialResponse;
+import androidx.credentials.exceptions.GetCredentialCancellationException;
+import androidx.credentials.exceptions.GetCredentialException;
+
+import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption;
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
+
+import java.util.concurrent.Executor;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -31,6 +53,9 @@ public class MainActivity extends Activity {
     private boolean loaded = false;
     private long stoppedAt = 0;
     private static final long LOCK_AFTER_MS = 15000;
+    private static final int REQ_MIC = 7;
+    private PermissionRequest pendingPerm;
+    private final Executor uiExecutor = r -> runOnUiThread(r);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +72,27 @@ public class MainActivity extends Activity {
         s.setDomStorageEnabled(true);
         s.setAllowFileAccess(false);
         s.setAllowContentAccess(false);
+        s.setMediaPlaybackRequiresUserGesture(false);
+
+        // Mikrofon (ovozli xabar va qo'ng'iroq) uchun ruxsat
+        web.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onPermissionRequest(final PermissionRequest request) {
+                runOnUiThread(() -> {
+                    boolean audio = false;
+                    for (String r : request.getResources()) {
+                        if (PermissionRequest.RESOURCE_AUDIO_CAPTURE.equals(r)) audio = true;
+                    }
+                    if (!audio) { request.deny(); return; }
+                    if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+                        request.grant(new String[]{PermissionRequest.RESOURCE_AUDIO_CAPTURE});
+                    } else {
+                        pendingPerm = request;
+                        requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, REQ_MIC);
+                    }
+                });
+            }
+        });
 
         final WebViewAssetLoader loader = new WebViewAssetLoader.Builder()
                 .addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(this))
@@ -110,6 +156,61 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQ_MIC && pendingPerm != null) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                pendingPerm.grant(new String[]{PermissionRequest.RESOURCE_AUDIO_CAPTURE});
+            } else {
+                pendingPerm.deny();
+            }
+            pendingPerm = null;
+        }
+    }
+
+    /* ---------- Google bilan kirish (Credential Manager) ---------- */
+    private void googleSignIn(String clientId) {
+        GetSignInWithGoogleOption opt = new GetSignInWithGoogleOption.Builder(clientId).build();
+        GetCredentialRequest req = new GetCredentialRequest.Builder().addCredentialOption(opt).build();
+        CredentialManager cm = CredentialManager.create(this);
+        cm.getCredentialAsync(this, req, new CancellationSignal(), uiExecutor,
+                new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
+                    @Override
+                    public void onResult(GetCredentialResponse result) {
+                        Credential c = result.getCredential();
+                        if (c instanceof CustomCredential
+                                && GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL.equals(c.getType())) {
+                            try {
+                                GoogleIdTokenCredential g = GoogleIdTokenCredential.createFrom(c.getData());
+                                sendGoogleResult(g.getIdToken(), null);
+                            } catch (Exception e) {
+                                sendGoogleResult(null, "parse");
+                            }
+                        } else {
+                            sendGoogleResult(null, "type");
+                        }
+                    }
+
+                    @Override
+                    public void onError(GetCredentialException e) {
+                        String err = (e instanceof GetCredentialCancellationException)
+                                ? "cancel" : e.getClass().getSimpleName() + ": " + e.getMessage();
+                        sendGoogleResult(null, err);
+                    }
+                });
+    }
+
+    private void sendGoogleResult(String token, String error) {
+        try {
+            JSONObject o = new JSONObject();
+            if (token != null) o.put("token", token);
+            if (error != null) o.put("error", error);
+            final String js = "window.onGoogleResult && window.onGoogleResult(" + o.toString() + ")";
+            runOnUiThread(() -> web.evaluateJavascript(js, null));
+        } catch (Exception ignored) { }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if (web != null) {
@@ -163,6 +264,43 @@ public class MainActivity extends Activity {
             } catch (Exception e) {
                 return "";
             }
+        }
+
+        @JavascriptInterface
+        public void googleSignIn(final String clientId) {
+            runOnUiThread(() -> MainActivity.this.googleSignIn(clientId));
+        }
+
+        @JavascriptInterface
+        public void callMode(final boolean active) {
+            runOnUiThread(() -> {
+                AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                if (am == null) return;
+                am.setMode(active ? AudioManager.MODE_IN_COMMUNICATION : AudioManager.MODE_NORMAL);
+                if (!active) am.setSpeakerphoneOn(false);
+                if (active) getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                else getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            });
+        }
+
+        @JavascriptInterface
+        public void setSpeaker(final boolean on) {
+            runOnUiThread(() -> {
+                AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                if (am != null) am.setSpeakerphoneOn(on);
+            });
+        }
+
+        @JavascriptInterface
+        public void vibrate(final String patternJson) {
+            try {
+                Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                if (v == null) return;
+                org.json.JSONArray a = new org.json.JSONArray(patternJson.startsWith("[") ? patternJson : "[0," + patternJson + "]");
+                long[] p = new long[a.length()];
+                for (int i = 0; i < p.length; i++) p[i] = a.getLong(i);
+                v.vibrate(VibrationEffect.createWaveform(p, -1));
+            } catch (Exception ignored) { }
         }
 
         @JavascriptInterface
