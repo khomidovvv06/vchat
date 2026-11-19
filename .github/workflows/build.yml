@@ -29,7 +29,17 @@ jobs:
           REPO="${GITHUB_REPOSITORY#*/}"
           sed -i "s|__OWNER__|$OWNER|g; s|__REPO__|$REPO|g" app/src/main/assets/www/index.html
 
+      - name: Imzolash kalitini tiklash
+        env:
+          KS: ${{ secrets.KEYSTORE_B64 }}
+        run: |
+          if [ -z "$KS" ]; then echo "::error::KEYSTORE_B64 secret qo'shilmagan"; exit 1; fi
+          echo "$KS" | base64 -d > "$RUNNER_TEMP/vchat.keystore"
+          echo "KEYSTORE_FILE=$RUNNER_TEMP/vchat.keystore" >> "$GITHUB_ENV"
+
       - name: APK yig'ish
+        env:
+          KEYSTORE_PASS: ${{ secrets.KEYSTORE_PASS }}
         run: gradle assembleRelease --no-daemon -Pvc=${{ github.run_number }}
 
       - run: cp app/build/outputs/apk/release/app-release.apk vchat.apk
