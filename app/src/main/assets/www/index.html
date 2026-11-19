@@ -12,63 +12,70 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 input,textarea{font:inherit;color:inherit}
 .screen{position:fixed;inset:0;display:none;flex-direction:column;background:var(--bg)}
 .screen.on{display:flex}
-.top{display:flex;align-items:center;gap:10px;padding:10px 10px;background:var(--panel);min-height:56px;flex-shrink:0}
+.top{display:flex;align-items:center;gap:10px;padding:10px;background:var(--panel);min-height:56px;flex-shrink:0}
 .top h1{font-size:19px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ib{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--muted);flex-shrink:0}
 .ib:active{background:rgba(255,255,255,.08)}
-.ib svg{width:24px;height:24px}
+.ib svg{width:23px;height:23px}
 .body{flex:1;overflow-y:auto;padding:20px}
 .center{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
-.big-ic{width:88px;height:88px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin:20px 0 6px}
-.big-ic svg{width:44px;height:44px;color:#fff}
+.big-ic{width:88px;height:88px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin:16px 0 4px;color:#fff;font-size:34px;font-weight:600;flex-shrink:0;background-size:cover;background-position:center}
+.big-ic svg{width:44px;height:44px}
 h2{font-size:21px;font-weight:600}
 .muted{color:var(--muted);font-size:14.5px;line-height:1.45}
-.inp{width:100%;background:var(--panel2);border:1.5px solid transparent;border-radius:12px;padding:14px;font-size:17px;outline:none}
+.inp{width:100%;background:var(--panel2);border:1.5px solid transparent;border-radius:12px;padding:14px;font-size:16px;outline:none}
 .inp:focus{border-color:var(--accent)}
-.inp.code{text-align:center;letter-spacing:2px;font-size:20px;font-weight:600;text-transform:uppercase}
-.btn{width:100%;background:var(--accent);color:#fff;border-radius:12px;padding:14px;font-weight:600;font-size:16px}
+.btn{width:100%;background:var(--accent);color:#fff;border-radius:12px;padding:14px;font-weight:600;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px}
 .btn:active{opacity:.85}.btn:disabled{opacity:.5}
 .btn.sec{background:var(--panel2);color:var(--accent)}
 .btn.danger{background:var(--panel2);color:var(--red)}
+.btn.white{background:#fff;color:#1f1f1f}
 .err{color:var(--red);font-size:14px;min-height:18px}
-.codebox{background:var(--panel2);border-radius:14px;padding:18px;width:100%}
-.codebox .c{font-size:25px;letter-spacing:2px;font-weight:700;font-family:monospace;color:#fff}
-.linkbox{background:var(--panel2);border-radius:12px;padding:12px;width:100%;font-family:monospace;font-size:13px;word-break:break-all;color:var(--accent);text-align:left}
-.warn{background:rgba(229,170,91,.12);color:#e5c27a;border-radius:12px;padding:12px;font-size:13.5px;line-height:1.4;text-align:left;width:100%}
 .row2{display:flex;gap:10px;width:100%}
-/* list */
 .list{flex:1;overflow-y:auto}
 .row{display:flex;gap:12px;padding:10px 14px;align-items:center}
 .row:active{background:var(--panel)}
-.av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:600;font-size:19px;flex-shrink:0}
+.av{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:600;font-size:19px;flex-shrink:0;background-size:cover;background-position:center}
 .av.sm{width:40px;height:40px;font-size:16px}
 .mid{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
 .l1,.l2{display:flex;gap:6px;align-items:center}
 .name{font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .time{font-size:12.5px;color:var(--muted)}
 .last{flex:1;color:var(--muted);font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.badge{background:var(--accent);color:#fff;border-radius:11px;min-width:22px;height:22px;padding:0 7px;font-size:12.5px;font-weight:600;display:grid;place-items:center}
-.bottom{display:flex;gap:10px;padding:12px 14px;background:var(--panel)}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.fab{position:fixed;right:18px;bottom:18px;width:58px;height:58px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.fab svg{width:26px;height:26px}
 .empty{padding:50px 26px}
-/* chat */
 .chead{flex:1;min-width:0;display:flex;align-items:center;gap:10px}
 .chead .n{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.chead .s{font-size:13px;color:var(--muted)}
-.chead .s.on{color:var(--accent)}
+.chead .s{font-size:13px;color:var(--accent)}
 .msgs{flex:1;overflow-y:auto;padding:10px 8px 6px;display:flex;flex-direction:column;gap:3px}
 .sys{align-self:center;background:rgba(0,0,0,.35);color:#cfd8e2;font-size:12.5px;padding:4px 11px;border-radius:12px;margin:6px 0;text-align:center;max-width:90%}
+.sys.warn{background:rgba(229,170,91,.15);color:#e5c27a}
 .m{max-width:82%;padding:6px 9px 6px 10px;border-radius:14px;line-height:1.35;font-size:15.5px;word-wrap:break-word;white-space:pre-wrap}
 .m.in{align-self:flex-start;background:var(--in);border-bottom-left-radius:4px}
 .m.out{align-self:flex-end;background:var(--out);border-bottom-right-radius:4px}
-.m .who{font-size:13.5px;font-weight:600;color:var(--accent);margin-bottom:1px}
+.m.lock{color:var(--muted);font-style:italic}
 .meta{float:right;margin:6px 0 -4px 10px;font-size:11.5px;color:rgba(255,255,255,.5);white-space:nowrap}
 .m.out .meta{color:#8fb6dd}
-.comp{display:flex;align-items:flex-end;gap:6px;padding:6px;background:var(--panel)}
+.voice{display:flex;align-items:center;gap:10px;min-width:210px;white-space:normal}
+.play{width:40px;height:40px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;flex-shrink:0}
+.m.out .play{background:#fff;color:var(--out)}
+.play svg{width:18px;height:18px}
+.bar{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.2);position:relative;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent)}
+.m.out .bar i{background:#fff}
+.vd{font-size:12px;color:rgba(255,255,255,.65);min-width:32px}
+.comp{display:flex;align-items:flex-end;gap:6px;padding:6px;background:var(--panel);position:relative}
 .comp textarea{flex:1;background:var(--panel2);border:0;border-radius:22px;padding:11px 16px;font-size:16px;outline:none;resize:none;max-height:120px;min-height:44px}
-.send{width:46px;height:46px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;flex-shrink:0}
+.send{width:46px;height:46px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;flex-shrink:0;touch-action:none;user-select:none;-webkit-user-select:none;transition:transform .15s}
 .send svg{width:22px;height:22px}
-.send:disabled{opacity:.4}
-/* sheet */
+.send.rec{transform:scale(1.4);background:var(--red)}
+.recbar{position:absolute;inset:0 62px 0 0;display:none;align-items:center;gap:10px;padding:0 16px;background:var(--panel);font-size:15px}
+.recbar.on{display:flex}
+.recdot{width:10px;height:10px;border-radius:50%;background:var(--red);animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.2}}
+.recbar .hint{flex:1;text-align:center;color:var(--muted);font-size:13.5px}
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;z-index:8}
 .scrim.on{display:block}
 .sheet{position:fixed;left:0;right:0;bottom:0;background:var(--panel);border-radius:16px 16px 0 0;padding:10px 0 14px;transform:translateY(110%);transition:transform .22s;z-index:9}
@@ -76,15 +83,31 @@ h2{font-size:21px;font-weight:600}
 .sheet button{display:flex;gap:14px;align-items:center;width:100%;padding:14px 20px;font-size:16px;text-align:left}
 .sheet button:active{background:var(--panel2)}
 .sheet button.red{color:var(--red)}
-.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);z-index:20;padding:24px}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);z-index:30;padding:24px}
 .modal.on{display:flex}
 .modal .box{background:var(--panel);border-radius:16px;padding:20px;width:100%;max-width:360px;display:flex;flex-direction:column;gap:14px}
 .modal .box p{color:var(--muted);line-height:1.45;font-size:15px}
-.spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:inline-block;vertical-align:middle}
+.spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:inline-block}
 @keyframes sp{to{transform:rotate(360deg)}}
+.toast{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:rgba(30,40,52,.97);padding:10px 16px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:60;max-width:88%;text-align:center}
+.toast.on{opacity:1}
+/* call */
+#call{position:fixed;inset:0;z-index:40;display:none;flex-direction:column;align-items:center;justify-content:space-between;padding:70px 20px 60px;background:linear-gradient(180deg,#1d3550,#0e1621)}
+#call.on{display:flex}
+#call .who{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+#call .big-ic{width:120px;height:120px;font-size:44px}
+#call .st{color:#b9c7d6;font-size:16px}
+#call .st.e2e{font-size:13px;color:var(--muted)}
+.cbtns{display:flex;gap:26px;align-items:flex-end}
+.cb{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:13px;color:#c9d4df}
+.cb span{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12)}
+.cb.on span{background:#fff;color:#1d3550}
+.cb span svg{width:28px;height:28px}
+.cb.red span{background:var(--red)}
+.cb.green span{background:var(--green)}
+/* pin */
 #pin{position:fixed;inset:0;background:var(--bg);z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:20px}
 #pin.on{display:flex}
-#pin h2{text-align:center}
 .dots{display:flex;gap:18px;height:20px}
 .dots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--muted)}
 .dots i.f{background:var(--accent);border-color:var(--accent)}
@@ -95,104 +118,85 @@ h2{font-size:21px;font-weight:600}
 .pad button:active{background:#2c3e52}
 .pad button.x{background:none;font-size:15px;color:var(--muted)}
 .link{color:var(--accent);font-size:14.5px}
+.safety{font-family:monospace;font-size:19px;letter-spacing:1px;line-height:1.7;color:#fff;text-align:center}
 </style>
 </head>
 <body>
 
-<!-- 1. Ism -->
-<section class="screen" id="s-setup">
-  <div class="body center">
+<!-- Yuklanmoqda -->
+<section class="screen on" id="s-load"><div class="body center" style="justify-content:center"><span class="spin"></span><p class="muted" id="loadTxt">Yuklanmoqda…</p></div></section>
+
+<!-- Kirish -->
+<section class="screen" id="s-login">
+  <div class="body center" style="justify-content:center">
     <div class="big-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-    <h2>VChat — maxfiy chat</h2>
-    <p class="muted">Xabarlar kod bilan shifrlanadi. Kodni bilmagan hech kim, hatto server ham ularni o'qiy olmaydi.</p>
-    <input class="inp" id="setupName" placeholder="Ismingiz" maxlength="30">
-    <button class="btn" id="setupGo">Boshlash</button>
+    <h2>VChat</h2>
+    <p class="muted">Xabarlar, ovozli xabarlar va qo'ng'iroqlar uchidan-uchiga shifrlanadi. Ularni hatto server ham o'qiy olmaydi.</p>
+    <button class="btn white" id="gBtn"><svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Google bilan kirish</button>
+    <div class="err" id="loginErr"></div>
   </div>
 </section>
 
-<!-- 2. Chatlar ro'yxati -->
+<!-- Chatlar -->
 <section class="screen" id="s-home">
-  <div class="top"><h1>VChat 🔒</h1><button class="ib" id="homeName" aria-label="Ism"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button></div>
+  <div class="top"><h1>VChat 🔒</h1><button class="ib" id="meBtn" aria-label="Profil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button></div>
   <div class="list" id="rows"></div>
-  <div class="bottom">
-    <button class="btn" id="goCreate">+ Yangi chat</button>
-    <button class="btn sec" id="goJoin">Qo'shilish</button>
-  </div>
+  <button class="fab" id="newBtn" aria-label="Yangi chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
 </section>
 
-<!-- 3. Yangi chat -->
-<section class="screen" id="s-create">
-  <div class="top"><button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><h1>Yangi maxfiy chat</h1></div>
+<!-- Yangi chat -->
+<section class="screen" id="s-new">
+  <div class="top"><button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><h1>Yangi chat</h1></div>
   <div class="body center">
-    <p class="muted" style="margin-top:10px">Chatga nom bering. Nom ham shifrlanadi va faqat kodni bilganlarga ko'rinadi.</p>
-    <input class="inp" id="createName" placeholder="Masalan: Men va Aziz" maxlength="40">
-    <button class="btn" id="createGo">Yaratish</button>
-    <div class="err" id="createErr"></div>
+    <p class="muted" style="margin-top:8px">Do'stingizning Gmail manzilini kiriting:</p>
+    <input class="inp" id="newEmail" type="email" placeholder="dost@gmail.com" autocomplete="off" autocapitalize="none">
+    <button class="btn" id="newGo">Topish</button>
+    <div class="err" id="newErr"></div>
+    <div id="newInvite" style="display:none;width:100%" class="center">
+      <p class="muted">Bu odam hali VChat'dan ro'yxatdan o'tmagan. Unga ilovani yuboring:</p>
+      <button class="btn sec" id="inviteBtn">Taklif yuborish</button>
+    </div>
   </div>
 </section>
 
-<!-- 4. Yaratildi: kod + havola -->
-<section class="screen" id="s-created">
-  <div class="top"><button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><h1>Chat yaratildi</h1></div>
-  <div class="body center">
-    <p class="muted">Chat kodi — uni eslab qoling yoki saqlang:</p>
-    <div class="codebox"><div class="c" id="crCode"></div></div>
-    <button class="btn sec" id="crCopyCode">Kodni nusxalash</button>
-    <p class="muted" style="margin-top:6px">Do'stingizga yuboriladigan taklif havolasi:</p>
-    <div class="linkbox" id="crLink"></div>
-    <div class="row2"><button class="btn" id="crShare">Havolani ulashish</button><button class="btn sec" id="crCopyLink">Nusxalash</button></div>
-    <div class="warn">⚠️ Havola va kodni <b>alohida</b> yuboring: havolani Telegram orqali, kodni esa og'zaki yoki boshqa yo'l bilan ayting. Shunda havola begona qo'lga tushsa ham chatni ocha olmaydi.<br><br>⏳ Do'stingiz <b>12 soat ichida</b> qo'shilishi kerak (server xabarlarni shuncha vaqt saqlaydi).</div>
-    <button class="btn" id="crNext">Davom etish — kodni kiritish</button>
-  </div>
-</section>
-
-<!-- 5. Kodni kiritish (ochish) -->
-<section class="screen" id="s-unlock">
-  <div class="top"><button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><h1 id="unTitle">Kodni kiriting</h1></div>
-  <div class="body center">
-    <div class="big-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-    <p class="muted" id="unText">Chatni ochish uchun 12 belgili kodni kiriting.</p>
-    <input class="inp code" id="unCode" placeholder="XXXX-XXXX-XXXX" maxlength="14" autocomplete="off" autocapitalize="characters">
-    <button class="btn" id="unGo">Ochish</button>
-    <div class="err" id="unErr"></div>
-  </div>
-</section>
-
-<!-- 6. Qo'shilish -->
-<section class="screen" id="s-join">
-  <div class="top"><button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><h1>Chatga qo'shilish</h1></div>
-  <div class="body center">
-    <p class="muted" style="margin-top:10px">Do'stingiz yuborgan taklif havolasini qo'ying:</p>
-    <div class="row2"><input class="inp" id="joinLink" placeholder="Taklif havolasi" autocomplete="off" style="flex:1;font-size:15px"><button class="btn sec" id="joinPaste" style="width:auto;padding:0 16px">Qo'yish</button></div>
-    <p class="muted">Va do'stingiz aytgan kodni kiriting:</p>
-    <input class="inp code" id="joinCode" placeholder="XXXX-XXXX-XXXX" maxlength="14" autocomplete="off" autocapitalize="characters">
-    <button class="btn" id="joinGo">Chatga kirish</button>
-    <div class="err" id="joinErr"></div>
-  </div>
-</section>
-
-<!-- 7. Chat -->
+<!-- Chat -->
 <section class="screen" id="s-chat">
   <div class="top">
     <button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-    <div class="chead"><div class="av sm" id="chAv"></div><div style="min-width:0"><div class="n" id="chName"></div><div class="s" id="chStat"></div></div></div>
+    <div class="chead"><div class="av sm" id="chAv"></div><div style="min-width:0"><div class="n" id="chName"></div><div class="s">🔒 shifrlangan</div></div></div>
+    <button class="ib" id="callBtn" aria-label="Qo'ng'iroq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg></button>
     <button class="ib" id="chMenu"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
   </div>
   <div class="msgs" id="msgs"></div>
   <div class="comp">
-    <textarea id="txt" rows="1" placeholder="Xabar" maxlength="1500"></textarea>
-    <button class="send" id="sendBtn" disabled><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"/></svg></button>
+    <textarea id="txt" rows="1" placeholder="Xabar" maxlength="3000"></textarea>
+    <button class="send" id="sendBtn"></button>
+    <div class="recbar" id="recbar"><div class="recdot"></div><span id="recTime">0:00</span><span class="hint">← chapga suring: bekor</span></div>
   </div>
 </section>
 
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet">
-  <button id="mInvite">🔗 Taklif havolasini ulashish</button>
-  <button id="mCode">🔑 Kodni ko'rsatish</button>
-  <button id="mRename">✏️ Chat nomini o'zgartirish</button>
-  <button id="mDelete" class="red">🗑 Chatni telefondan o'chirish</button>
+  <button id="mSafety">🛡 Xavfsizlik raqamini tekshirish</button>
+  <button id="mInfo">ℹ️ Kontakt haqida</button>
 </div>
 
+<!-- Qo'ng'iroq -->
+<div id="call">
+  <div class="who"><div class="big-ic" id="cAv"></div><h2 id="cName"></h2><div class="st" id="cSt"></div><div class="st e2e">🔒 uchidan-uchiga shifrlangan</div></div>
+  <div class="cbtns" id="cIn">
+    <button class="cb red" id="cDecline"><span><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 9c-1.6 0-3.1.3-4.6.7v3.1c0 .4-.2.7-.6.9-.9.4-1.8 1-2.5 1.6-.2.2-.4.3-.7.3s-.5-.1-.7-.3L.3 12.8c-.2-.2-.3-.4-.3-.7s.1-.5.3-.7C3.3 8.6 7.4 7 12 7s8.7 1.6 11.7 4.4c.2.2.3.4.3.7s-.1.5-.3.7l-2.5 2.5c-.2.2-.4.3-.7.3s-.5-.1-.7-.3c-.8-.7-1.6-1.2-2.5-1.6-.3-.2-.6-.5-.6-.9V9.7C15.1 9.3 13.6 9 12 9z"/></svg></span>Rad etish</button>
+    <button class="cb green" id="cAccept"><span><svg viewBox="0 0 24 24" fill="#fff"><path d="M20 15.5c-1.2 0-2.4-.2-3.6-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1-.3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"/></svg></span>Javob berish</button>
+  </div>
+  <div class="cbtns" id="cOn" style="display:none">
+    <button class="cb" id="cMute"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></span>Ovozsiz</button>
+    <button class="cb red" id="cHang"><span><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 9c-1.6 0-3.1.3-4.6.7v3.1c0 .4-.2.7-.6.9-.9.4-1.8 1-2.5 1.6-.2.2-.4.3-.7.3s-.5-.1-.7-.3L.3 12.8c-.2-.2-.3-.4-.3-.7s.1-.5.3-.7C3.3 8.6 7.4 7 12 7s8.7 1.6 11.7 4.4c.2.2.3.4.3.7s-.1.5-.3.7l-2.5 2.5c-.2.2-.4.3-.7.3s-.5-.1-.7-.3c-.8-.7-1.6-1.2-2.5-1.6-.3-.2-.6-.5-.6-.9V9.7C15.1 9.3 13.6 9 12 9z"/></svg></span>Tugatish</button>
+    <button class="cb" id="cSpk"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg></span>Karnay</button>
+  </div>
+  <audio id="remoteAudio" autoplay playsinline></audio>
+</div>
+
+<!-- PIN -->
 <div id="pin">
   <div class="big-ic" style="margin:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
   <h2 id="pinT">PIN-kodni kiriting</h2>
@@ -203,287 +207,563 @@ h2{font-size:21px;font-weight:600}
 </div>
 
 <div class="modal" id="modal"><div class="box"><h2 id="moT"></h2><p id="moP"></p><input class="inp" id="moI" style="display:none"><div class="row2" id="moB"></div></div></div>
+<div class="toast" id="toast"></div>
 
-<script src="core.js"></script>
-<script>
-const $=s=>document.querySelector(s);
-const V=window.VCore;
-const OWNER='__OWNER__', REPO='__REPO__';
-const CONFIGURED=!OWNER.startsWith('__');
-const APK_URL=CONFIGURED?`https://github.com/${OWNER}/${REPO}/releases/latest/download/vchat.apk`:'';
-const COLORS=['#e17076','#7bc862','#e5ca77','#65aadd','#a695e7','#ee7aae','#6ec9cb','#faa774'];
-const HOUR=3600e3;
+<script type="module">
+import * as C from './crypto.js';
+import { CONFIG } from './config.js';
 
-/* ---------- saqlash ---------- */
-let st={me:null,rooms:{}};
-try{const s=JSON.parse(localStorage.getItem('vchat')||'null');if(s&&s.rooms)st=s}catch(e){}
-function save(){try{localStorage.setItem('vchat',JSON.stringify(st))}catch(e){}}
+const $ = s => document.querySelector(s);
+const MOCK = new URLSearchParams(location.search).has('mock');
+const native = window.Android || null;
+const OWNER = '__OWNER__', REPO = '__REPO__';
+const APK_URL = OWNER.startsWith('__') ? '' : `https://github.com/${OWNER}/${REPO}/releases/latest/download/vchat.apk`;
+const COLORS = ['#e17076','#7bc862','#e5ca77','#65aadd','#a695e7','#ee7aae','#6ec9cb','#faa774'];
+const MAX_VOICE_SEC = 60;
 
-function inviteLink(room){return CONFIGURED?`https://${OWNER}.github.io/${REPO}/#${room}`:'vchat://join/'+room}
-function shareText(room){
-  let t=`🔒 VChat maxfiy chatiga taklif:\n${inviteLink(room)}`;
-  if(APK_URL)t+=`\n\nIlova o'rnatilmagan bo'lsa, avval yuklab oling:\n${APK_URL}`;
-  return t+`\n\nKodni sizga alohida aytaman.`;
+/* ---------- yordamchilar ---------- */
+const LSP = 'vchat2' + C.DEV + ':';
+const ls = { get(k, d) { try { const v = localStorage.getItem(LSP + k); if (v == null) return d; const x = JSON.parse(v); return x == null ? d : x; } catch (e) { return d; } },
+             set(k, v) { try { localStorage.setItem(LSP + k, JSON.stringify(v)); } catch (e) {} } };
+let tt; function toast(s) { const t = $('#toast'); t.textContent = s; t.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('on'), 2400); }
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function colorOf(id) { let h = 0; for (const c of String(id)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return COLORS[h % COLORS.length]; }
+function initials(n) { return (n || '?').replace(/[^\p{L}\p{N}\s]/gu, '').trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase() || '?'; }
+function setAv(el, u) { el.style.background = colorOf(u.uid); el.textContent = initials(u.name); if (u.photo && /^https:\/\//.test(u.photo)) { el.style.backgroundImage = `url("${u.photo.replace(/"/g, '')}")`; el.textContent = ''; } else el.style.backgroundImage = ''; }
+const hm = ts => new Date(ts).toTimeString().slice(0, 5);
+function when(ts) { const d = new Date(ts), t = new Date(); return d.toDateString() === t.toDateString() ? hm(ts) : d.toLocaleDateString('uz', { day: 'numeric', month: 'short' }); }
+const fmt = s => { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+const chatIdOf = (a, b) => [a, b].sort().join('_');
+const vibrate = p => { try { native ? native.vibrate(JSON.stringify(p)) : navigator.vibrate && navigator.vibrate(p); } catch (e) {} };
+function shareText() {
+  let t = `Men VChat'da yozishaman — xabarlar va qo'ng'iroqlar shifrlangan 🔒\nMeni Gmail orqali toping: ${me.email}`;
+  if (APK_URL) t += `\n\nIlovani yuklab olish:\n${APK_URL}`;
+  return t;
 }
-const native=window.Android||null;
-function toast(s){if(native)native.toast(s);else console.log(s)}
-function copy(s,msg){if(native)native.copy(s);else navigator.clipboard&&navigator.clipboard.writeText(s).catch(()=>{});toast(msg||'Nusxalandi')}
-function share(s){if(native)native.share(s);else copy(s)}
-function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-function colorOf(id){let h=0;for(const c of id)h=(h*31+c.charCodeAt(0))>>>0;return COLORS[h%COLORS.length]}
-function initials(n){return (n||'?').replace(/[^\p{L}\p{N}\s]/gu,'').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase()||'🔒'}
-function hm(ts){const d=new Date(ts);return d.toTimeString().slice(0,5)}
-function when(ts){const d=new Date(ts),t=new Date();if(d.toDateString()===t.toDateString())return hm(ts);return d.toLocaleDateString('uz',{day:'numeric',month:'short'})}
+function share(t) { if (native) native.share(t); else { navigator.clipboard?.writeText(t).catch(() => {}); toast('Nusxalandi'); } }
 
 /* ---------- navigatsiya ---------- */
-let screen='', stack=[];
-function show(id,push=true){
-  if(push&&screen&&screen!==id)stack.push(screen);
-  document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id==='s-'+id));
-  screen=id;
-  if(id==='home'){stack=[];renderHome()}
-  if(id!=='chat')curRoom=null;
+let screen = 'load', stack = [];
+function show(id, push = true) {
+  if (push && screen && screen !== id && screen !== 'load' && screen !== 'login') stack.push(screen);
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === 's-' + id));
+  if (screen === 'chat' && id !== 'chat') closeChat();
+  screen = id;
+  if (id === 'home') { stack = []; renderHome(); }
 }
-function back(){
-  if($('#modal').classList.contains('on')){closeModal();return true}
-  if($('#sheet').classList.contains('on')){closeSheet();return true}
-  if(screen==='home'||screen==='setup')return false;
-  let prev=stack.pop()||'home';
-  if(prev==='created'||prev==='unlock'||prev==='create'||prev==='join')prev='home';
-  show(prev,false);return true;
+function back() {
+  if ($('#modal').classList.contains('on')) { closeModal(); return true; }
+  if ($('#sheet').classList.contains('on')) { closeSheet(); return true; }
+  if (screen === 'home' || screen === 'login' || screen === 'load') return false;
+  show(stack.pop() || 'home', false); return true;
 }
-window.handleBack=back;
-document.querySelectorAll('[data-back]').forEach(b=>b.onclick=back);
+document.querySelectorAll('[data-back]').forEach(b => b.onclick = back);
 
-/* ---------- modal ---------- */
-function modal({title,text,input,buttons}){
-  $('#moT').textContent=title||'';$('#moP').innerHTML=text||'';
-  const i=$('#moI');i.style.display=input!=null?'block':'none';i.value=input||'';
-  const b=$('#moB');b.innerHTML='';b.style.flexDirection=buttons.length>2?'column':'row';
-  buttons.forEach(x=>{const e=document.createElement('button');e.className='btn '+(x.cls||'');e.textContent=x.label;e.onclick=()=>{closeModal();x.fn&&x.fn(i.value)};b.appendChild(e)});
-  $('#modal').classList.add('on');if(input!=null)setTimeout(()=>i.focus(),50);
+function modal({ title, text, input, buttons }) {
+  $('#moT').textContent = title || ''; $('#moP').innerHTML = text || '';
+  const i = $('#moI'); i.style.display = input != null ? 'block' : 'none'; i.value = input || '';
+  const b = $('#moB'); b.innerHTML = ''; b.style.flexDirection = buttons.length > 2 ? 'column' : 'row';
+  buttons.forEach(x => { const e = document.createElement('button'); e.className = 'btn ' + (x.cls || ''); e.textContent = x.label; e.onclick = () => { closeModal(); x.fn && x.fn(i.value); }; b.appendChild(e); });
+  $('#modal').classList.add('on'); if (input != null) setTimeout(() => i.focus(), 50);
 }
-function closeModal(){$('#modal').classList.remove('on')}
+function closeModal() { $('#modal').classList.remove('on'); }
+function openSheet() { $('#sheet').classList.add('on'); $('#scrim').classList.add('on'); }
+function closeSheet() { $('#sheet').classList.remove('on'); $('#scrim').classList.remove('on'); }
+$('#scrim').onclick = closeSheet;
 
-/* ---------- 1. ism ---------- */
-$('#setupGo').onclick=()=>{
-  const n=$('#setupName').value.trim();if(!n){$('#setupName').focus();return}
-  st.me={id:V.newId(),name:n};save();pinSet(()=>{unlocked=true;show('home',false);handlePending()});
+/* ---------- backend ---------- */
+let B;
+try {
+  B = MOCK ? await import('./backend-mock.js') : await import('./backend-firebase.js');
+  await B.init(CONFIG);
+} catch (e) {
+  $('#loadTxt').textContent = 'Serverga ulanib bo\'lmadi. Internetni tekshirib, ilovani qayta oching.';
+  throw e;
+}
+
+/* ---------- holat ---------- */
+let me = null, myKey = null, unlocked = false;
+const users = {};        // uid -> profil (ochiq kalit bilan)
+const chatKeys = {};     // chatId -> {key, tag, other}
+let chats = [], unsubChats = null, unsubCalls = null;
+
+async function loadUser(uid, fresh) {
+  if (!fresh && users[uid]) return users[uid];
+  const u = await (fresh ? B.getUserFresh(uid) : B.getUser(uid));
+  if (u) users[uid] = u;
+  return users[uid] || null;
+}
+
+// Kontaktning kaliti o'zgarganini aniqlash (yangi telefon yoki qayta o'rnatish)
+function checkKeyChange(u) {
+  const known = ls.get('known', {});
+  const changed = known[u.uid] && u.keyId && known[u.uid] !== u.keyId;
+  if (u.keyId) { known[u.uid] = u.keyId; ls.set('known', known); }
+  if (changed) { const ch = ls.get('keyChanged', {}); ch[u.uid] = Date.now(); ls.set('keyChanged', ch); }
+  return changed;
+}
+
+async function getChatKey(chatId, otherUid, fresh) {
+  const u = await loadUser(otherUid, fresh);
+  if (!u || !u.pub) return null;
+  checkKeyChange(u);
+  const key = await C.chatKey(myKey.priv, myKey.keyId, u.pub, chatId);
+  const tag = [[me.uid, myKey.keyId], [otherUid, u.keyId]].sort((a, b) => a[0] < b[0] ? -1 : 1).map(x => x[1]).join(':');
+  return (chatKeys[chatId] = { key, tag, other: otherUid });
+}
+
+/* ---------- kirish ---------- */
+window.onGoogleResult = async r => {
+  const btn = $('#gBtn'); btn.disabled = false;
+  if (r && r.token) {
+    try { await B.signInWithGoogleToken(r.token); }
+    catch (e) { $('#loginErr').textContent = 'Kirib bo\'lmadi: ' + (e.code || e.message); }
+  } else if (r && r.error && r.error !== 'cancel') $('#loginErr').textContent = 'Google bilan kirib bo\'lmadi (' + r.error + ')';
 };
-function editName(){modal({title:'Ismingiz',text:'Chatdagilar sizni shu ism bilan ko\'radi.',input:st.me.name,buttons:[{label:'Bekor',cls:'sec'},{label:'Saqlash',fn:v=>{if(v.trim()){st.me.name=v.trim();save()}}}]})}
-$('#homeName').onclick=()=>modal({title:st.me.name,text:'Sozlamalar',buttons:[{label:'✏️ Ismni o\'zgartirish',cls:'sec',fn:()=>setTimeout(editName,50)},{label:'🔑 PIN-kodni o\'zgartirish',cls:'sec',fn:()=>pinChange()},{label:'Yopish'}]});
-
-/* ---------- 2. ro'yxat ---------- */
-function renderHome(){
-  const rooms=Object.values(st.rooms).sort((a,b)=>(b.lastTs||b.created)-(a.lastTs||a.created));
-  const el=$('#rows');
-  if(!rooms.length){el.innerHTML=`<div class="empty center"><div class="big-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h2>Hali chat yo'q</h2><p class="muted">Yangi maxfiy chat yarating va do'stingizga havola yuboring, yoki do'stingiz yuborgan havola orqali qo'shiling.</p></div>`;return}
-  el.innerHTML=rooms.map(r=>{const m=r.msgs[r.msgs.length-1];const last=m?(m.from===st.me.id?'Siz: ':(m.name?m.name+': ':''))+m.text:(r.unlocked?'Hali xabar yo\'q':'🔑 Kod kiritilmagan');
-    return `<div class="row" data-r="${r.id}"><div class="av" style="background:${colorOf(r.id)}">${esc(initials(r.name))}</div><div class="mid"><div class="l1"><span class="name">🔒 ${esc(r.name)}</span><span class="time">${when(r.lastTs||r.created)}</span></div><div class="l2"><span class="last">${esc(last)}</span>${r.unread?`<span class="badge">${r.unread}</span>`:''}</div></div></div>`}).join('');
-}
-$('#rows').onclick=e=>{const r=e.target.closest('.row');if(r)openRoom(r.dataset.r)};
-$('#goCreate').onclick=()=>{$('#createName').value='';$('#createErr').textContent='';show('create')};
-$('#goJoin').onclick=()=>openJoin('');
-
-/* ---------- 3-4. yaratish ---------- */
-$('#createGo').onclick=async()=>{
-  const name=$('#createName').value.trim()||'Maxfiy chat';
-  const btn=$('#createGo');btn.disabled=true;btn.innerHTML='<span class="spin"></span>';$('#createErr').textContent='';
-  const id=V.newRoomId(),code=V.newCode();
-  try{
-    await V.publish(id,code,{t:'hello',chatName:name,from:st.me.id,name:st.me.name,ts:Date.now()});
-    st.rooms[id]={id,name,code,created:Date.now(),creator:true,unlocked:false,msgs:[],unread:0,lastSrv:Date.now()};save();
-    $('#crCode').textContent=V.prettyCode(code);$('#crLink').textContent=inviteLink(id);createdRoom=id;
-    show('created');
-  }catch(e){$('#createErr').textContent='Internetga ulanib bo\'lmadi. Qayta urinib ko\'ring.'}
-  btn.disabled=false;btn.textContent='Yaratish';
+$('#gBtn').onclick = () => {
+  $('#loginErr').textContent = '';
+  if (MOCK) return modal({ title: 'Sinov: email', input: '', buttons: [{ label: 'Kirish', fn: v => B.signInWithGoogleToken('mock:' + v.trim()) }] });
+  if (!native) { $('#loginErr').textContent = 'Kirish faqat ilova ichida ishlaydi'; return; }
+  $('#gBtn').disabled = true; native.googleSignIn(CONFIG.webClientId);
 };
-let createdRoom=null;
-$('#crCopyCode').onclick=()=>copy(V.prettyCode(st.rooms[createdRoom].code),'Kod nusxalandi');
-$('#crCopyLink').onclick=()=>copy(shareText(createdRoom),'Havola nusxalandi');
-$('#crShare').onclick=()=>share(shareText(createdRoom));
-$('#crNext').onclick=()=>{stack=[];openUnlock(createdRoom)};
 
-/* ---------- 5. kod bilan ochish (yaratuvchi) ---------- */
-let unlockRoom=null;
-function openUnlock(id){
-  unlockRoom=id;const r=st.rooms[id];
-  $('#unTitle').textContent=r.name;$('#unCode').value='';$('#unErr').textContent='';
-  show('unlock');setTimeout(()=>$('#unCode').focus(),100);
-}
-$('#unGo').onclick=()=>{
-  const r=st.rooms[unlockRoom];
-  if(V.normCode($('#unCode').value)!==V.normCode(r.code)){$('#unErr').textContent='Kod noto\'g\'ri';return}
-  r.unlocked=true;save();stack=[];openRoom(r.id);
-};
-$('#unCode').onkeydown=e=>{if(e.key==='Enter')$('#unGo').click()};
+B.onAuth(async user => {
+  if (!user) { me = null; unlocked = false; cleanupSession(); show('login', false); return; }
+  if (me && me.uid === user.uid) return;
+  me = user; $('#loadTxt').textContent = 'Kalitlar tayyorlanmoqda…'; show('load', false);
+  try {
+    myKey = await C.deviceKey(me.uid);
+    const prof = await B.getUser(me.uid).catch(() => null);
+    if (prof && prof.name) me.name = prof.name;
+    const newDevice = prof && prof.keyId && prof.keyId !== myKey.keyId;
+    await B.saveProfile(me.uid, { name: me.name, email: me.email, photo: me.photo || '', pub: myKey.pubJwk, keyId: myKey.keyId, updated: Date.now() });
+    users[me.uid] = { uid: me.uid, ...me, pub: myKey.pubJwk, keyId: myKey.keyId };
+    if (newDevice) ls.set('newDeviceNote', true);
+  } catch (e) {
+    console.error(e); $('#loadTxt').textContent = 'Xatolik: ' + (e.code || e.message); return;
+  }
+  const st = ls.get('pin', null);
+  if (!st) pinSet(startSession); else { show('home', false); pinDone = startSession; pinShow('unlock', 'PIN-kodni kiriting', ''); }
+});
 
-/* ---------- 6. qo'shilish ---------- */
-function openJoin(link){
-  $('#joinLink').value=link||'';$('#joinCode').value='';$('#joinErr').textContent='';
-  show('join');setTimeout(()=>(link?$('#joinCode'):$('#joinLink')).focus(),100);
+function startSession() {
+  unlocked = true; show('home', false);
+  if (ls.get('newDeviceNote', false)) { ls.set('newDeviceNote', false); modal({ title: 'Yangi qurilma', text: 'Bu telefonda yangi xavfsizlik kaliti yaratildi. Eski telefondagi xabarlar bu yerda ochilmaydi, chunki ularning kaliti o\'sha telefonda qolgan. Yangi xabarlar odatdagidek ishlaydi.', buttons: [{ label: 'Tushunarli' }] }); }
+  unsubChats = B.listenChats(me.uid, list => { chats = list; if (screen === 'home') renderHome(); });
+  unsubCalls = B.listenIncomingCalls(me.uid, onIncomingCalls);
 }
-$('#joinPaste').onclick=()=>{const t=native?native.paste():'';if(t)$('#joinLink').value=t.trim();else toast('Buferda matn yo\'q')};
-$('#joinCode').onkeydown=e=>{if(e.key==='Enter')$('#joinGo').click()};
-$('#joinGo').onclick=async()=>{
-  const err=$('#joinErr');err.textContent='';
-  const id=V.parseRoom($('#joinLink').value);
-  if(!id){err.textContent='Havola noto\'g\'ri. Do\'stingiz yuborgan havolani to\'liq qo\'ying.';return}
-  const code=V.normCode($('#joinCode').value);
-  if(code.length!==12&&code.length!==8){err.textContent='Kod 12 ta belgidan iborat bo\'lishi kerak';return}
-  if(st.rooms[id]){st.rooms[id].unlocked=true;save();openRoom(id);return}
-  const btn=$('#joinGo');btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
-  try{
-    const res=await V.verify(id,code);
-    if(res.status==='wrong'){err.textContent='Kod noto\'g\'ri. Do\'stingizdan kodni qayta so\'rang.'}
-    else if(res.status==='ok'){finishJoin(id,code,res.payload.chatName||'Maxfiy chat')}
-    else modal({title:'Chat topilmadi',text:'Serverda bu chatning xabarlari yo\'q: havola 12 soatdan eski bo\'lishi mumkin. Shu sababli kodni tekshirib bo\'lmadi.<br><br>Baribir kirsangiz va kod noto\'g\'ri bo\'lsa, do\'stingizning xabarlari ko\'rinmaydi.',buttons:[{label:'Bekor',cls:'sec'},{label:'Baribir kirish',fn:()=>finishJoin(id,code,'Maxfiy chat')}]});
-  }catch(e){err.textContent='Internetga ulanib bo\'lmadi. Qayta urinib ko\'ring.'}
-  btn.disabled=false;btn.textContent='Chatga kirish';
-};
-async function finishJoin(id,code,name){
-  st.rooms[id]={id,name,code,created:Date.now(),creator:false,unlocked:true,msgs:[],unread:0,lastSrv:0};save();
-  subscribeRoom(id);
-  stack=[];openRoom(id);
-  try{await V.publish(id,code,{t:'join',from:st.me.id,name:st.me.name,ts:Date.now()})}catch(e){}
-}
+function cleanupSession() { unsubChats && unsubChats(); unsubCalls && unsubCalls(); unsubChats = unsubCalls = null; chats = []; }
 
-/* ---------- deep link ---------- */
-let pending=null;
-window.onDeepLink=url=>{pending=url;if(st.me&&unlocked)handlePending()};
-function handlePending(){
-  if(!pending)return;const id=V.parseRoom(pending);pending=null;
-  if(!id){toast('Havola noto\'g\'ri');return}
-  if(st.rooms[id])openRoom(id);else openJoin(inviteLink(id));
-}
-
-/* ---------- server obunasi ---------- */
-const subs={};
-function subscribeRoom(id){
-  const r=st.rooms[id];if(!r||subs[id])return;
-  subs[id]=V.subscribe(id,r.code,'all',(p,ev)=>onPayload(id,p,ev),ok=>{if(curRoom===id)setStat(ok)});
-}
-function onPayload(id,p,ev){
-  const r=st.rooms[id];if(!r)return;
-  r.lastSrv=Math.max(r.lastSrv||0,ev.time*1000);
-  if(p.t==='hello'&&p.chatName&&!r.creator&&r.name==='Maxfiy chat'){r.name=p.chatName;if(curRoom===id)$('#chName').textContent=r.name}
-  if(p.t==='join'&&p.from!==st.me.id){addSys(r,`${p.name||'Kimdir'} chatga qo'shildi`,p.id||('j'+ev.id),ev.time*1000)}
-  if(p.t==='msg'){
-    const ex=r.msgs.find(m=>m.id===p.id);
-    if(ex){if(ex.pending){ex.pending=false;if(curRoom===id)renderMsgs()}}
-    else{
-      r.msgs.push({id:p.id,from:p.from,name:p.name,text:String(p.text||'').slice(0,4000),ts:p.ts||ev.time*1000});
-      r.msgs.sort((a,b)=>a.ts-b.ts);
-      if(r.msgs.length>1000)r.msgs.splice(0,r.msgs.length-1000);
-      r.lastTs=Math.max(r.lastTs||0,p.ts||0);
-      if(curRoom===id)renderMsgs();else if(p.from!==st.me.id)r.unread=(r.unread||0)+1;
+/* ---------- chatlar ro'yxati ---------- */
+const prevCache = {};
+async function renderHome() {
+  const el = $('#rows');
+  const list = [...chats].sort((a, b) => (b.upd || 0) - (a.upd || 0));
+  if (!list.length) { el.innerHTML = `<div class="empty center"><div class="big-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h2>Hali chat yo'q</h2><p class="muted">Pastdagi ✏️ tugmasini bosing va do'stingizning Gmail manzilini kiriting.</p><button class="btn sec" id="emptyInvite">Do'stni taklif qilish</button></div>`; $('#emptyInvite').onclick = () => share(shareText()); return; }
+  const read = ls.get('read', {});
+  const rows = await Promise.all(list.map(async c => {
+    const other = c.members.find(x => x !== me.uid) || me.uid;
+    const u = (await loadUser(other).catch(() => null)) || { uid: other, name: 'Noma\'lum' };
+    let prev = '';
+    if (c.prev) {
+      const ck = c.id + c.upd;
+      if (prevCache[ck] == null) {
+        try { const k = await getChatKey(c.id, other); prevCache[ck] = (c.lastFrom === me.uid ? 'Siz: ' : '') + await C.decStr(k.key, c.prev, 'prev|' + c.id + '|' + c.lastFrom); }
+        catch (e) { prevCache[ck] = '🔒 Shifrlangan xabar'; }
+      }
+      prev = prevCache[ck];
     }
-  }
-  save();if(screen==='home')renderHome();
+    const unread = c.lastFrom && c.lastFrom !== me.uid && (c.upd || 0) > (read[c.id] || 0);
+    return { c, u, prev, unread };
+  }));
+  if (screen !== 'home') return;
+  el.innerHTML = rows.map(({ c, u, prev, unread }) => `<div class="row" data-u="${esc(u.uid)}"><div class="av" data-av="${esc(u.uid)}"></div><div class="mid"><div class="l1"><span class="name">${esc(u.name)}</span><span class="time">${c.upd ? when(c.upd) : ''}</span></div><div class="l2"><span class="last">${esc(prev)}</span>${unread ? '<span class="dot"></span>' : ''}</div></div></div>`).join('');
+  rows.forEach(({ u }) => { const a = el.querySelector(`[data-av="${CSS.escape(u.uid)}"]`); a && setAv(a, u); });
 }
-function addSys(r,text,id,ts){
-  if(r.msgs.find(m=>m.id===id))return;
-  r.msgs.push({id,sys:true,text,ts});r.msgs.sort((a,b)=>a.ts-b.ts);
-  if(curRoom===r.id)renderMsgs();
-}
+$('#rows').onclick = e => { const r = e.target.closest('.row'); if (r) openChat(r.dataset.u); };
 
-/* ---------- 7. chat ---------- */
-let curRoom=null;
-function openRoom(id){
-  const r=st.rooms[id];if(!r)return;
-  if(!r.unlocked){openUnlock(id);return}
-  curRoom=id;r.unread=0;save();
-  $('#chAv').style.background=colorOf(id);$('#chAv').textContent=initials(r.name);$('#chName').textContent=r.name;
-  setStat(true);show('chat');renderMsgs();subscribeRoom(id);
-  // server 12 soat saqlaydi — chat "tirik" qolishi uchun yashirin belgi yuboramiz
-  if(Date.now()-(r.lastSrv||0)>6*HOUR)V.publish(id,r.code,{t:'ping',from:st.me.id,ts:Date.now()}).then(()=>{r.lastSrv=Date.now();save()}).catch(()=>{});
-}
-function setStat(ok){const s=$('#chStat');s.textContent=ok?'🔒 uchidan-uchiga shifrlangan':'ulanmoqda…';s.className='s'+(ok?' on':'')}
-function renderMsgs(){
-  const r=st.rooms[curRoom];if(!r)return;const el=$('#msgs');
-  let h=`<div class="sys">🔒 Bu chatdagi xabarlar kod bilan shifrlangan. Kodni hech kimga bermang.</div>`;
-  let lastDay='';
-  for(const m of r.msgs){
-    const day=new Date(m.ts).toDateString();
-    if(day!==lastDay){lastDay=day;h+=`<div class="sys">${day===new Date().toDateString()?'Bugun':new Date(m.ts).toLocaleDateString('uz',{day:'numeric',month:'long'})}</div>`}
-    if(m.sys){h+=`<div class="sys">${esc(m.text)}</div>`;continue}
-    const out=m.from===st.me.id;
-    h+=`<div class="m ${out?'out':'in'}">${!out&&m.name?`<div class="who" style="color:${colorOf(m.from||'x')}">${esc(m.name)}</div>`:''}${esc(m.text)}<span class="meta">${hm(m.ts)}${out?(m.pending?' 🕓':' ✓'):''}</span></div>`;
-  }
-  el.innerHTML=h;el.scrollTop=el.scrollHeight;
-}
-const txt=$('#txt'),sb=$('#sendBtn');
-txt.oninput=()=>{sb.disabled=!txt.value.trim();txt.style.height='auto';txt.style.height=Math.min(txt.scrollHeight,120)+'px'};
-sb.onclick=async()=>{
-  const text=txt.value.trim();if(!text||!curRoom)return;
-  const r=st.rooms[curRoom];
-  const m={id:V.newId(),from:st.me.id,name:st.me.name,text,ts:Date.now(),pending:true};
-  r.msgs.push(m);r.lastTs=m.ts;save();renderMsgs();
-  txt.value='';txt.oninput();txt.focus();
-  try{await V.publish(r.id,r.code,{t:'msg',id:m.id,from:m.from,name:m.name,text:m.text,ts:m.ts});r.lastSrv=Date.now()}
-  catch(e){toast('Yuborilmadi — internetni tekshiring');m.failed=true}
-  save();
+/* ---------- profil ---------- */
+$('#meBtn').onclick = () => modal({ title: me.name, text: esc(me.email) + '<br><br><span style="font-size:13px">Qurilma kaliti: ' + myKey.keyId.match(/.{4}/g).join(' ') + '</span>', buttons: [
+  { label: '✏️ Ismni o\'zgartirish', cls: 'sec', fn: () => setTimeout(() => modal({ title: 'Ismingiz', input: me.name, buttons: [{ label: 'Bekor', cls: 'sec' }, { label: 'Saqlash', fn: async v => { v = v.trim().slice(0, 40); if (!v) return; me.name = v; users[me.uid].name = v; await B.saveProfile(me.uid, { name: v }); toast('Saqlandi'); } }] }), 50) },
+  { label: '📨 Do\'stni taklif qilish', cls: 'sec', fn: () => share(shareText()) },
+  { label: '🔑 PIN-kodni o\'zgartirish', cls: 'sec', fn: () => pinChange() },
+  { label: '🚪 Chiqish', cls: 'danger', fn: () => setTimeout(() => modal({ title: 'Akkauntdan chiqasizmi?', text: 'Qayta kirganingizda xabarlaringiz shu telefonda yana ochiladi.', buttons: [{ label: 'Bekor', cls: 'sec' }, { label: 'Chiqish', cls: 'danger', fn: () => B.signOut() }] }), 50) },
+  { label: 'Yopish' }] });
+
+/* ---------- yangi chat ---------- */
+$('#newBtn').onclick = () => { $('#newEmail').value = ''; $('#newErr').textContent = ''; $('#newInvite').style.display = 'none'; show('new'); setTimeout(() => $('#newEmail').focus(), 100); };
+$('#newEmail').onkeydown = e => { if (e.key === 'Enter') $('#newGo').click(); };
+$('#inviteBtn').onclick = () => share(shareText());
+$('#newGo').onclick = async () => {
+  const email = $('#newEmail').value.trim().toLowerCase(); const err = $('#newErr'); err.textContent = ''; $('#newInvite').style.display = 'none';
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = 'Gmail manzil noto\'g\'ri'; return; }
+  if (email === me.email) { err.textContent = 'Bu sizning manzilingiz 🙂'; return; }
+  const btn = $('#newGo'); btn.disabled = true; btn.innerHTML = '<span class="spin"></span>';
+  try {
+    const u = await B.findUserByEmail(email);
+    if (!u) $('#newInvite').style.display = 'flex';
+    else { users[u.uid] = u; stack = []; openChat(u.uid); }
+  } catch (e) { err.textContent = 'Internetga ulanib bo\'lmadi'; }
+  btn.disabled = false; btn.textContent = 'Topish';
 };
 
-/* chat menyusi */
-function openSheet(){$('#sheet').classList.add('on');$('#scrim').classList.add('on')}
-function closeSheet(){$('#sheet').classList.remove('on');$('#scrim').classList.remove('on')}
-$('#chMenu').onclick=openSheet;$('#scrim').onclick=closeSheet;
-$('#mInvite').onclick=()=>{closeSheet();share(shareText(curRoom))};
-$('#mCode').onclick=()=>{closeSheet();const c=V.prettyCode(st.rooms[curRoom].code);modal({title:'Chat kodi',text:`<span style="font-size:28px;letter-spacing:4px;font-weight:700;color:#fff;font-family:monospace">${c}</span><br><br>Kodni faqat ishonchli odamga ayting.`,buttons:[{label:'Yopish',cls:'sec'},{label:'Nusxalash',fn:()=>copy(c,'Kod nusxalandi')}]})};
-$('#mRename').onclick=()=>{closeSheet();const r=st.rooms[curRoom];modal({title:'Chat nomi',text:'Nom faqat sizning telefoningizda o\'zgaradi.',input:r.name,buttons:[{label:'Bekor',cls:'sec'},{label:'Saqlash',fn:v=>{if(v.trim()){r.name=v.trim();save();$('#chName').textContent=r.name;$('#chAv').textContent=initials(r.name)}}}]})};
-$('#mDelete').onclick=()=>{closeSheet();modal({title:'Chatni o\'chirish?',text:'Chat va uning xabarlari faqat sizning telefoningizdan o\'chiriladi.',buttons:[{label:'Bekor',cls:'sec'},{label:'O\'chirish',cls:'danger',fn:()=>{const id=curRoom;subs[id]&&subs[id].close();delete subs[id];delete st.rooms[id];save();show('home',false)}}]})};
+/* ---------- chat ---------- */
+let cur = null, unsubMsgs = null, lastMsgs = [];
+const plainCache = new Map();   // msgId -> {text}|{voice}|{lock}
 
-/* ---------- start ---------- */
+async function openChat(otherUid) {
+  const chatId = chatIdOf(me.uid, otherUid);
+  const u = await loadUser(otherUid, true).catch(() => users[otherUid]);
+  if (!u) { toast('Foydalanuvchi topilmadi'); return; }
+  cur = { chatId, other: otherUid };
+  setAv($('#chAv'), u); $('#chName').textContent = u.name;
+  $('#msgs').innerHTML = ''; lastMsgs = [];
+  show('chat');
+  await getChatKey(chatId, otherUid).catch(() => null);
+  unsubMsgs = B.listenMessages(chatId, list => { lastMsgs = list; if (cur && cur.chatId === chatId) renderMsgs(); });
+  updateSendBtn();
+}
+function closeChat() { unsubMsgs && unsubMsgs(); unsubMsgs = null; stopVoice(); cur = null; }
+
+async function decryptMsg(m) {
+  if (plainCache.has(m.id)) return plainCache.get(m.id);
+  let r;
+  try {
+    const k = chatKeys[cur.chatId] || await getChatKey(cur.chatId, cur.other);
+    if (!k) throw 0;
+    const aad = m.t + '|' + cur.chatId + '|' + m.from;
+    if (m.t === 'voice') r = { voice: true, dur: m.dur || 0, data: m.e, aad, key: k.key };
+    else r = JSON.parse(await C.decStr(k.key, m.e, aad));
+  } catch (e) { r = { lock: true }; }
+  plainCache.set(m.id, r);
+  return r;
+}
+
+async function renderMsgs() {
+  if (!cur) return;
+  const chatId = cur.chatId, el = $('#msgs');
+  const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+  const parts = await Promise.all(lastMsgs.map(async m => ({ m, p: await decryptMsg(m) })));
+  if (!cur || cur.chatId !== chatId) return;
+  let h = `<div class="sys">🔒 Xabarlar va qo'ng'iroqlar uchidan-uchiga shifrlangan. Ularni faqat siz va suhbatdoshingiz ko'ra oladi.</div>`;
+  const kc = ls.get('keyChanged', {})[cur.other];
+  if (kc) h += `<div class="sys warn">⚠️ ${esc(users[cur.other]?.name)}ning xavfsizlik kaliti o'zgardi (yangi telefon yoki ilovani qayta o'rnatgan). Ishonch hosil qilish uchun ⋮ → "Xavfsizlik raqami"ni tekshiring.</div>`;
+  let lastDay = '';
+  for (const { m, p } of parts) {
+    const day = new Date(m.ts).toDateString();
+    if (day !== lastDay) { lastDay = day; h += `<div class="sys">${day === new Date().toDateString() ? 'Bugun' : new Date(m.ts).toLocaleDateString('uz', { day: 'numeric', month: 'long' })}</div>`; }
+    const out = m.from === me.uid, meta = `<span class="meta">${hm(m.ts)}${out ? ' ✓' : ''}</span>`;
+    if (p.lock) { h += `<div class="m ${out ? 'out' : 'in'} lock">🔒 Bu xabarni ochib bo'lmadi (boshqa qurilma kaliti bilan shifrlangan)${meta}</div>`; continue; }
+    if (m.t === 'call') { h += `<div class="sys">${esc(p.text)} · ${hm(m.ts)}</div>`; continue; }
+    if (m.t === 'voice') { h += `<div class="m ${out ? 'out' : 'in'}"><div class="voice" data-v="${esc(m.id)}"><button class="play">${IC.play}</button><div class="bar"><i></i></div><span class="vd">${fmt(p.dur)}</span></div>${meta}</div>`; continue; }
+    h += `<div class="m ${out ? 'out' : 'in'}">${esc(p.text)}${meta}</div>`;
+  }
+  el.innerHTML = h;
+  if (atBottom || !el.dataset.scrolled) { el.scrollTop = el.scrollHeight; el.dataset.scrolled = '1'; }
+  const read = ls.get('read', {}); read[chatId] = Date.now(); ls.set('read', read);
+}
+
+/* ---------- yuborish ---------- */
+const IC = {
+  send: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"/></svg>',
+  mic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg>',
+  play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+  pause: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>'
+};
+const txt = $('#txt'), sb = $('#sendBtn');
+function updateSendBtn() { sb.innerHTML = txt.value.trim() ? IC.send : IC.mic; }
+txt.oninput = () => { updateSendBtn(); txt.style.height = 'auto'; txt.style.height = Math.min(txt.scrollHeight, 120) + 'px'; };
+
+async function sendPayload(t, payloadOrBytes, extra = {}, target = cur) {
+  const { chatId, other } = target;
+  let k = chatKeys[chatId];
+  // har yuborishda suhbatdoshning eng so'nggi kalitini tekshiramiz
+  k = await getChatKey(chatId, other, true);
+  if (!k) { toast('Suhbatdoshning kaliti topilmadi'); return false; }
+  const aad = t + '|' + chatId + '|' + me.uid;
+  const e = t === 'voice' ? await C.encBytes(k.key, payloadOrBytes, aad) : await C.encStr(k.key, JSON.stringify(payloadOrBytes), aad);
+  const ts = Date.now();
+  const preview = t === 'voice' ? '🎤 Ovozli xabar' : t === 'call' ? payloadOrBytes.text : payloadOrBytes.text.slice(0, 80);
+  await B.upsertChat(chatId, { members: [me.uid, other].sort(), upd: ts, lastFrom: me.uid, prev: await C.encStr(k.key, preview, 'prev|' + chatId + '|' + me.uid) });
+  await B.sendMessage(chatId, { from: me.uid, ts, t, k: k.tag, e, ...extra });
+  return true;
+}
+async function sendText() {
+  const text = txt.value.trim(); if (!text || !cur) return;
+  txt.value = ''; txt.oninput();
+  try { await sendPayload('text', { text }); } catch (e) { console.error(e); toast('Yuborilmadi — internetni tekshiring'); txt.value = text; txt.oninput(); }
+}
+txt.onkeydown = e => { if (e.key === 'Enter' && !e.shiftKey && !native) { e.preventDefault(); sendText(); } };
+
+/* ---------- ovozli xabar ---------- */
+let rec = null, recChunks = [], recStart = 0, recTick = null, recStream = null, startX = 0, cancelled = false, holdT = null, longPress = false;
+sb.addEventListener('pointerdown', e => {
+  if (txt.value.trim()) return;
+  longPress = false; startX = e.clientX;
+  holdT = setTimeout(() => { longPress = true; startVoice(); }, 200);
+});
+sb.addEventListener('pointerup', () => {
+  clearTimeout(holdT);
+  if (txt.value.trim()) { sendText(); return; }
+  if (longPress) finishVoice(); else toast('🎤 Ovozli xabar uchun bosib turing');
+});
+sb.addEventListener('contextmenu', e => e.preventDefault());
+function slide(e) { if (rec && startX - e.clientX > 110) { cancelled = true; finishVoice(); } }
+async function startVoice() {
+  cancelled = false;
+  try { recStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }); }
+  catch (e) { toast('Mikrofonga ruxsat berilmadi'); return; }
+  if (!longPress) { recStream.getTracks().forEach(t => t.stop()); return; }
+  const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4'].find(t => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || '';
+  recChunks = []; rec = new MediaRecorder(recStream, mime ? { mimeType: mime, audioBitsPerSecond: 24000 } : { audioBitsPerSecond: 24000 });
+  rec.ondataavailable = ev => ev.data.size && recChunks.push(ev.data);
+  const r = rec, stream = recStream;
+  rec.onstop = async () => {
+    stream.getTracks().forEach(t => t.stop());
+    const dur = (Date.now() - recStart) / 1000;
+    if (cancelled) return;
+    if (dur < 0.8) { toast('Juda qisqa'); return; }
+    const blob = new Blob(recChunks, { type: r.mimeType || mime });
+    const bytes = new Uint8Array(await blob.arrayBuffer());
+    if (bytes.length > 600000) { toast('Ovozli xabar juda katta'); return; }
+    try { await sendPayload('voice', bytes, { dur: Math.round(dur), mime: blob.type }); } catch (e) { console.error(e); toast('Yuborilmadi — internetni tekshiring'); }
+  };
+  rec.start(); recStart = Date.now(); sb.classList.add('rec'); $('#recbar').classList.add('on'); vibrate(30);
+  recTick = setInterval(() => { const s = (Date.now() - recStart) / 1000; $('#recTime').textContent = fmt(s); if (s >= MAX_VOICE_SEC) finishVoice(); }, 250);
+  document.addEventListener('pointermove', slide);
+}
+function finishVoice() {
+  document.removeEventListener('pointermove', slide);
+  clearInterval(recTick); sb.classList.remove('rec'); $('#recbar').classList.remove('on'); $('#recTime').textContent = '0:00';
+  if (rec && rec.state !== 'inactive') rec.stop(); rec = null;
+}
+
+/* ovozli xabarni ijro etish */
+let player = null;
+function stopVoice() { if (player) { player.a.pause(); player.btn.innerHTML = IC.play; player.bar.style.width = '0'; player = null; } }
+$('#msgs').addEventListener('click', async e => {
+  const v = e.target.closest('.voice'); if (!v || !e.target.closest('.play')) return;
+  const id = v.dataset.v, p = plainCache.get(id), btn = v.querySelector('.play'), bar = v.querySelector('.bar i'), dl = v.querySelector('.vd');
+  if (player && player.id === id) { if (player.a.paused) { player.a.play(); btn.innerHTML = IC.pause; } else { player.a.pause(); btn.innerHTML = IC.play; } return; }
+  stopVoice();
+  try {
+    if (!p.url) { const bytes = await C.decBytes(p.key, p.data, p.aad); const m = lastMsgs.find(x => x.id === id); p.url = URL.createObjectURL(new Blob([bytes], { type: (m && m.mime) || 'audio/webm' })); }
+    const a = new Audio(p.url);
+    player = { id, a, btn, bar };
+    a.ontimeupdate = () => { const d = isFinite(a.duration) ? a.duration : p.dur; if (d) bar.style.width = Math.min(100, a.currentTime / d * 100) + '%'; dl.textContent = fmt(a.currentTime); };
+    a.onended = () => { dl.textContent = fmt(p.dur); stopVoice(); };
+    await a.play(); btn.innerHTML = IC.pause;
+  } catch (err) { console.error(err); toast('Ovozli xabarni ochib bo\'lmadi'); }
+});
+
+/* ---------- chat menyusi ---------- */
+$('#chMenu').onclick = openSheet;
+$('#mSafety').onclick = async () => {
+  closeSheet();
+  const u = await loadUser(cur.other, true);
+  if (!u || !u.pub) return toast('Kalit topilmadi');
+  const num = await C.safetyNumber(me.uid, myKey.pubJwk, u.uid, u.pub);
+  modal({ title: 'Xavfsizlik raqami', text: `<div class="safety">${num.replace(/ /g, ' &nbsp;')}</div><br>Bu raqam ${esc(u.name)}ning telefonida ham <b>aynan bir xil</b> bo'lishi kerak. Yuzma-yuz yoki telefonda solishtiring. Mos kelsa, sizning suhbatingizga hech kim aralasha olmaydi.`, buttons: [{ label: 'Mos keldi ✓', fn: () => { const ch = ls.get('keyChanged', {}); delete ch[u.uid]; ls.set('keyChanged', ch); renderMsgs(); } }, { label: 'Yopish', cls: 'sec' }] });
+};
+$('#mInfo').onclick = async () => { closeSheet(); const u = users[cur.other]; modal({ title: u.name, text: esc(u.email) + '<br><br><span style="font-size:13px">Qurilma kaliti: ' + (u.keyId || '').match(/.{1,4}/g)?.join(' ') + '</span>', buttons: [{ label: 'Yopish' }] }); };
+
+/* ---------- qo'ng'iroqlar (WebRTC) ---------- */
+const ICE = { iceServers: [{ urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302'] }] };
+let call = null;
+const handledCalls = new Set();
+let ringCtx = null, ringTimer = null;
+function ring(on, outgoing) {
+  clearInterval(ringTimer); ringTimer = null;
+  if (ringCtx) { ringCtx.close().catch(() => {}); ringCtx = null; }
+  if (!on) return;
+  try {
+    ringCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const beep = () => {
+      if (!ringCtx) return;
+      const t0 = ringCtx.currentTime, g = ringCtx.createGain(); g.connect(ringCtx.destination); g.gain.value = outgoing ? 0.05 : 0.15;
+      [outgoing ? 425 : 660, outgoing ? 425 : 880].forEach((f, i) => { const o = ringCtx.createOscillator(); o.frequency.value = f; o.connect(g); o.start(t0 + i * 0.4); o.stop(t0 + i * 0.4 + (outgoing ? 1 : 0.35)); });
+      if (!outgoing) vibrate([0, 500, 300, 500]);
+    };
+    beep(); ringTimer = setInterval(beep, outgoing ? 4000 : 2500);
+  } catch (e) {}
+}
+function callUI(u, status, incoming) {
+  setAv($('#cAv'), u); $('#cName').textContent = u.name; $('#cSt').textContent = status;
+  $('#cIn').style.display = incoming ? 'flex' : 'none'; $('#cOn').style.display = incoming ? 'none' : 'flex';
+  $('#cMute').classList.remove('on'); $('#cSpk').classList.remove('on');
+  $('#call').classList.add('on');
+}
+const callAad = c => 'call|' + c.chatId;
+function setupPc(c) {
+  const pc = new RTCPeerConnection(ICE);
+  c.pc = pc; c.localCands = []; c.remoteCands = []; c.unsubs = [];
+  c.stream.getTracks().forEach(t => pc.addTrack(t, c.stream));
+  pc.onicecandidate = async e => {
+    if (!e.candidate) return;
+    const data = JSON.stringify(e.candidate.toJSON());
+    if (c.id) B.addCand(c.id, { by: me.uid, c: await C.encStr(c.key, data, callAad(c)), ts: Date.now() }).catch(() => {});
+    else c.localCands.push(data);
+  };
+  pc.ontrack = e => { const a = $('#remoteAudio'); a.srcObject = e.streams[0]; a.play().catch(() => {}); };
+  pc.onconnectionstatechange = () => {
+    if (call !== c) return;
+    if (pc.connectionState === 'connected' && !c.started) {
+      c.started = Date.now(); ring(false);
+      c.timer = setInterval(() => $('#cSt').textContent = fmt((Date.now() - c.started) / 1000), 1000);
+    }
+    if (pc.connectionState === 'failed') endCall('Ulanib bo\'lmadi (tarmoq)', true);
+  };
+}
+async function flushLocalCands(c) { for (const d of c.localCands.splice(0)) B.addCand(c.id, { by: me.uid, c: await C.encStr(c.key, d, callAad(c)), ts: Date.now() }).catch(() => {}); }
+function listenRemoteCands(c) {
+  c.unsubs.push(B.listenCands(c.id, c.other, async cd => {
+    try {
+      const cand = JSON.parse(await C.decStr(c.key, cd.c, callAad(c)));
+      if (c.pc.remoteDescription) await c.pc.addIceCandidate(cand); else c.remoteCands.push(cand);
+    } catch (e) { console.warn('cand', e); }
+  }));
+}
+async function flushRemoteCands(c) { for (const cand of c.remoteCands.splice(0)) await c.pc.addIceCandidate(cand).catch(() => {}); }
+async function getMic() { try { return await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); } catch (e) { toast('Mikrofonga ruxsat berilmadi'); return null; } }
+
+async function startCall() {
+  if (call || !cur) return;
+  const { chatId, other } = cur;
+  const k = await getChatKey(chatId, other, true);
+  if (!k) return toast('Suhbatdoshning kaliti topilmadi');
+  const u = users[other];
+  // qo'ng'iroq qoidalari chat mavjud bo'lishini talab qiladi
+  if (!chats.find(x => x.id === chatId)) {
+    try { const ts = Date.now(); await B.upsertChat(chatId, { members: [me.uid, other].sort(), upd: ts, lastFrom: me.uid, prev: await C.encStr(k.key, '📞 Qo\'ng\'iroq', 'prev|' + chatId + '|' + me.uid) }); } catch (e) {}
+  }
+  const stream = await getMic(); if (!stream) return;
+  const c = call = { role: 'out', chatId, other, key: k.key, stream };
+  native && native.callMode(true);
+  callUI(u, 'Chaqirilmoqda…', false); ring(true, true);
+  setupPc(c);
+  try {
+    const offer = await c.pc.createOffer(); await c.pc.setLocalDescription(offer);
+    c.id = await B.createCall({ from: me.uid, to: other, chatId, status: 'ringing', created: Date.now(), k: k.tag, offer: await C.encStr(c.key, JSON.stringify(offer), callAad(c)) });
+  } catch (e) { console.error(e); endCall('Qo\'ng\'iroq qilib bo\'lmadi', false); return; }
+  if (call !== c) { B.updateCall(c.id, { status: 'ended' }).catch(() => {}); return; }
+  flushLocalCands(c); listenRemoteCands(c);
+  c.unsubs.push(B.listenCall(c.id, async d => {
+    if (call !== c) return;
+    if (d.status === 'accepted' && d.answer && !c.answered) {
+      c.answered = true; $('#cSt').textContent = 'Ulanmoqda…'; ring(false);
+      try { await c.pc.setRemoteDescription(JSON.parse(await C.decStr(c.key, d.answer, callAad(c)))); await flushRemoteCands(c); }
+      catch (e) { console.error(e); endCall('Ulanib bo\'lmadi', true); }
+    }
+    if (d.status === 'declined') endCall('Rad etildi', false, 'declined');
+    if (d.status === 'busy') endCall('Band', false, 'busy');
+    if (d.status === 'ended' && c.answered) endCall('Qo\'ng\'iroq tugadi', false);
+  }));
+  c.noAnswer = setTimeout(() => { if (call === c && !c.answered) endCall('Javob bermadi', true, 'missed'); }, 45000);
+}
+$('#callBtn').onclick = startCall;
+
+function onIncomingCalls(list) {
+  for (const d of list) {
+    if (handledCalls.has(d.id)) continue;
+    handledCalls.add(d.id);
+    if (Date.now() - (d.created || 0) > 50000) continue;
+    if (call || !unlocked) { B.updateCall(d.id, { status: 'busy' }).catch(() => {}); continue; }
+    incoming(d);
+  }
+  if (call && call.role === 'in' && !call.accepted && !list.find(d => d.id === call.id)) endCall('', false);
+}
+async function incoming(d) {
+  const u = await loadUser(d.from, true).catch(() => null); if (!u) return;
+  const k = await getChatKey(d.chatId, d.from).catch(() => null);
+  if (!k) return;
+  call = { role: 'in', id: d.id, chatId: d.chatId, other: d.from, key: k.key, offerEnc: d.offer };
+  callUI(u, 'Kiruvchi qo\'ng\'iroq…', true); ring(true, false);
+  call.unsubs = [B.listenCall(d.id, x => { if (call && call.id === d.id && !call.accepted && (x.status === 'ended' || x.status === 'missed')) endCall('O\'tkazib yuborildi', false); })];
+}
+$('#cAccept').onclick = async () => {
+  const c = call; if (!c || c.role !== 'in' || c.accepted) return;
+  ring(false);
+  c.stream = await getMic(); if (!c.stream) { $('#cDecline').click(); return; }
+  c.accepted = true; native && native.callMode(true);
+  $('#cIn').style.display = 'none'; $('#cOn').style.display = 'flex'; $('#cSt').textContent = 'Ulanmoqda…';
+  const keep = c.unsubs; setupPc(c); c.unsubs.push(...keep);
+  try {
+    await c.pc.setRemoteDescription(JSON.parse(await C.decStr(c.key, c.offerEnc, callAad(c))));
+    const ans = await c.pc.createAnswer(); await c.pc.setLocalDescription(ans);
+    listenRemoteCands(c); flushLocalCands(c);
+    await B.updateCall(c.id, { status: 'accepted', answer: await C.encStr(c.key, JSON.stringify(ans), callAad(c)) });
+    c.unsubs.push(B.listenCall(c.id, x => { if (call === c && x.status === 'ended') endCall('Qo\'ng\'iroq tugadi', false); }));
+  } catch (e) { console.error(e); endCall('Ulanib bo\'lmadi', true); }
+};
+$('#cDecline').onclick = () => { const c = call; if (!c) return; B.updateCall(c.id, { status: 'declined' }).catch(() => {}); endCall('', false); };
+$('#cHang').onclick = () => endCall('Qo\'ng\'iroq tugadi', true);
+$('#cMute').onclick = () => { if (!call || !call.stream) return; const t = call.stream.getAudioTracks()[0]; t.enabled = !t.enabled; $('#cMute').classList.toggle('on', !t.enabled); };
+$('#cSpk').onclick = () => { const on = !$('#cSpk').classList.contains('on'); $('#cSpk').classList.toggle('on', on); native && native.setSpeaker(on); };
+
+function endCall(msg, notify, reason) {
+  const c = call; if (!c) return;
+  call = null; ring(false); clearInterval(c.timer); clearTimeout(c.noAnswer);
+  if (notify && c.id) B.updateCall(c.id, { status: reason === 'missed' ? 'missed' : 'ended' }).catch(() => {});
+  (c.unsubs || []).forEach(u => { try { u(); } catch (e) {} });
+  try { c.pc && c.pc.close(); } catch (e) {}
+  c.stream && c.stream.getTracks().forEach(t => t.stop());
+  $('#remoteAudio').srcObject = null;
+  native && native.callMode(false);
+  if (msg) { $('#cSt').textContent = msg; $('#cIn').style.display = 'none'; $('#cOn').style.display = 'none'; setTimeout(() => { if (!call) $('#call').classList.remove('on'); }, 1400); }
+  else $('#call').classList.remove('on');
+  // qo'ng'iroq tarixini chatga yozish (faqat chaqiruvchi tomondan)
+  if (c.role === 'out' && c.id) {
+    const dur = c.started ? (Date.now() - c.started) / 1000 : 0;
+    const text = dur ? `📞 Qo'ng'iroq · ${fmt(dur)}` : reason === 'declined' ? '📞 Rad etilgan qo\'ng\'iroq' : '📞 Javobsiz qo\'ng\'iroq';
+    sendPayload('call', { text }, {}, { chatId: c.chatId, other: c.other }).catch(() => {});
+  }
+}
+
 /* ---------- PIN-qulf ---------- */
-let unlocked=false,pinBuf='',pinMode='',pinFirst='',pinDone=null;
-const pad=$('#pad');
-['1','2','3','4','5','6','7','8','9','','0','⌫'].forEach(k=>{const b=document.createElement('button');b.textContent=k;if(!k)b.style.visibility='hidden';if(k==='⌫')b.className='x';b.onclick=()=>pinKey(k);pad.appendChild(b)});
-function pinShow(mode,title,text){pinMode=mode;pinBuf='';$('#pinT').textContent=title;$('#pinP').textContent=text||'';$('#pinForgot').style.display=mode==='unlock'?'':'none';pinDots();$('#pin').classList.add('on')}
-function pinHide(){$('#pin').classList.remove('on')}
-function pinDots(){[...$('#pinDots').children].forEach((d,i)=>d.classList.toggle('f',i<pinBuf.length))}
-function pinShake(msg){const d=$('#pinDots');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');$('#pinP').textContent=msg;pinBuf='';setTimeout(pinDots,300)}
-function lockWait(){const l=st.pinLock||{n:0,until:0};return Math.max(0,l.until-Date.now())}
-function pinKey(k){
-  if(k==='⌫'){pinBuf=pinBuf.slice(0,-1);pinDots();return}
-  if(pinBuf.length>=4)return;
-  if(pinMode==='unlock'||pinMode==='old'){const w=lockWait();if(w){$('#pinP').textContent=`Juda ko'p urinish. ${Math.ceil(w/1000)} soniya kuting`;return}}
-  pinBuf+=k;pinDots();
-  if(pinBuf.length===4)setTimeout(pinSubmit,120);
+let pinBuf = '', pinMode = '', pinFirst = '', pinDone = null;
+const pad = $('#pad');
+['1','2','3','4','5','6','7','8','9','','0','⌫'].forEach(k => { const b = document.createElement('button'); b.textContent = k; if (!k) b.style.visibility = 'hidden'; if (k === '⌫') b.className = 'x'; b.onclick = () => pinKey(k); pad.appendChild(b); });
+function pinShow(mode, title, text) { pinMode = mode; pinBuf = ''; $('#pinT').textContent = title; $('#pinP').textContent = text || ''; $('#pinForgot').style.display = mode === 'unlock' ? '' : 'none'; pinDots(); $('#pin').classList.add('on'); }
+function pinHide() { $('#pin').classList.remove('on'); }
+function pinDots() { [...$('#pinDots').children].forEach((d, i) => d.classList.toggle('f', i < pinBuf.length)); }
+function pinShake(m) { const d = $('#pinDots'); d.classList.remove('shake'); void d.offsetWidth; d.classList.add('shake'); $('#pinP').textContent = m; pinBuf = ''; setTimeout(pinDots, 300); }
+function lockWait() { const l = ls.get('pinLock', { n: 0, until: 0 }); return Math.max(0, l.until - Date.now()); }
+function pinKey(k) {
+  if (k === '⌫') { pinBuf = pinBuf.slice(0, -1); pinDots(); return; }
+  if (pinBuf.length >= 4) return;
+  if ((pinMode === 'unlock' || pinMode === 'old') && lockWait()) { $('#pinP').textContent = `Juda ko'p urinish. ${Math.ceil(lockWait() / 1000)} soniya kuting`; return; }
+  pinBuf += k; pinDots();
+  if (pinBuf.length === 4) setTimeout(pinSubmit, 120);
 }
-async function pinCheck(p){return (await V.hashPin(p,st.pin.salt))===st.pin.hash}
-async function pinSubmit(){
-  const p=pinBuf;
-  if(pinMode==='set1'){pinFirst=p;pinShow('set2','PIN-kodni takrorlang','Tasdiqlash uchun yana bir marta kiriting')}
-  else if(pinMode==='set2'){
-    if(p!==pinFirst){pinShow('set1','Yangi PIN-kod o\'ylab toping','');pinShake('PIN-kodlar mos kelmadi, qaytadan kiriting');return}
-    const salt=V.newId();st.pin={salt,hash:await V.hashPin(p,salt)};st.pinLock={n:0,until:0};save();pinHide();toast('PIN-kod saqlandi');const f=pinDone;pinDone=null;f&&f();
+async function pinSubmit() {
+  const p = pinBuf, st = ls.get('pin', null);
+  if (pinMode === 'set1') { pinFirst = p; pinShow('set2', 'PIN-kodni takrorlang', 'Tasdiqlash uchun yana bir marta kiriting'); return; }
+  if (pinMode === 'set2') {
+    if (p !== pinFirst) { pinShow('set1', 'PIN-kod o\'ylab toping', ''); pinShake('PIN-kodlar mos kelmadi, qaytadan kiriting'); return; }
+    const salt = C.randId(); ls.set('pin', { salt, hash: await C.hashPin(p, salt) }); ls.set('pinLock', { n: 0, until: 0 }); pinHide(); toast('PIN-kod saqlandi');
+    const f = pinDone; pinDone = null; f && f(); return;
   }
-  else{
-    if(await pinCheck(p)){st.pinLock={n:0,until:0};save();
-      if(pinMode==='old'){pinShow('set1','Yangi PIN-kod o\'ylab toping','4 ta raqam')}
-      else{pinHide();const f=pinDone;pinDone=null;f&&f()}}
-    else{const l=st.pinLock||{n:0,until:0};l.n++;if(l.n>=5)l.until=Date.now()+30000*Math.pow(2,l.n-5);st.pinLock=l;save();
-      pinShake(l.n>=5?`Noto'g'ri. ${Math.ceil(lockWait()/1000)} soniya kuting`:`Noto'g'ri PIN-kod (${5-l.n} ta urinish qoldi)`)}
+  if (st && await C.hashPin(p, st.salt) === st.hash) {
+    ls.set('pinLock', { n: 0, until: 0 });
+    if (pinMode === 'old') pinShow('set1', 'Yangi PIN-kod o\'ylab toping', '4 ta raqam');
+    else { pinHide(); const f = pinDone; pinDone = null; f && f(); }
+  } else {
+    const l = ls.get('pinLock', { n: 0, until: 0 }); l.n++; if (l.n >= 5) l.until = Date.now() + 30000 * Math.pow(2, l.n - 5); ls.set('pinLock', l);
+    pinShake(l.n >= 5 ? `Noto'g'ri. ${Math.ceil(lockWait() / 1000)} soniya kuting` : `Noto'g'ri PIN-kod (${5 - l.n} ta urinish qoldi)`);
   }
 }
-function pinSet(done){pinDone=done;pinShow('set1','PIN-kod o\'ylab toping','Ilovani ochish uchun 4 xonali PIN-kod. Uni hech kimga aytmang.')}
-function pinChange(){pinDone=null;pinShow('old','Hozirgi PIN-kodni kiriting','')}
-function lockApp(){if(!st.pin||!unlocked)return;closeModal();closeSheet();pinDone=null;pinShow('unlock','PIN-kodni kiriting','')}
-window.lockApp=lockApp;
-$('#pinForgot').onclick=()=>modal({title:'PIN-kodni unutdingizmi?',text:'PIN-kodni tiklashning yagona yo\'li ilovani tozalash. Barcha chatlar va xabarlar shu telefondan <b>butunlay o\'chadi</b>. Chatlarga qayta kirish uchun do\'stlaringizdan havola va kodni qayta so\'rashingiz kerak bo\'ladi.',buttons:[{label:'Bekor',cls:'sec'},{label:'Hammasini o\'chirish',cls:'danger',fn:()=>{try{localStorage.removeItem('vchat')}catch(e){}location.reload()}}]});
-const _back=window.handleBack;
-window.handleBack=()=>{
-  if(!$('#pin').classList.contains('on'))return _back();
-  // PIN o'zgartirish jarayonidan chiqish mumkin; qulf va birinchi sozlashdan esa yo'q (ilova yopiladi)
-  if(unlocked&&!pinDone&&pinMode!=='unlock'){pinHide();return true}
-  return false;
-};
+function pinSet(done) { pinDone = done; show('home', false); pinShow('set1', 'PIN-kod o\'ylab toping', 'Ilovani ochish uchun 4 xonali PIN-kod. Uni hech kimga aytmang.'); }
+function pinChange() { pinDone = null; pinShow('old', 'Hozirgi PIN-kodni kiriting', ''); }
+window.lockApp = () => { if (!ls.get('pin', null) || !unlocked || call) return; closeModal(); closeSheet(); pinDone = null; pinShow('unlock', 'PIN-kodni kiriting', ''); };
+// PIN unutilsa: shu telefondagi kalit o'chiriladi (aks holda PIN'ni Google orqali chetlab o'tish mumkin bo'lardi)
+$('#pinForgot').onclick = () => modal({ title: 'PIN-kodni unutdingizmi?', text: 'PIN-kodni tiklash uchun shu telefondagi xavfsizlik kaliti <b>o\'chiriladi</b>. Qayta kirganingizdan keyin yangi kalit yaratiladi: <b>eski xabarlar bu telefonda ochilmaydi</b>, yangilari odatdagidek ishlaydi.', buttons: [{ label: 'Bekor', cls: 'sec' }, { label: 'O\'chirish va chiqish', cls: 'danger', fn: async () => { await C.idbDel('dev:' + me.uid); ['pin', 'pinLock', 'read', 'known', 'keyChanged'].forEach(k => ls.set(k, null)); pinHide(); await B.signOut(); location.reload(); } }] });
 
-function startApp(){unlocked=true;show('home',false);Object.keys(st.rooms).forEach(id=>{if(st.rooms[id].unlocked)subscribeRoom(id)});handlePending()}
-if(!st.me)show('setup',false);
-else if(!st.pin){show('home',false);pinSet(startApp)}
-else{show('home',false);pinDone=startApp;pinShow('unlock','PIN-kodni kiriting','')}
+window.handleBack = () => {
+  if ($('#call').classList.contains('on')) return true;
+  if ($('#pin').classList.contains('on')) { if (unlocked && !pinDone && pinMode !== 'unlock') { pinHide(); return true; } return false; }
+  return back();
+};
+window.__vchat = { get call() { return call; }, get me() { return me; }, get n() { return lastMsgs.length; }, get cur() { return cur; } };   // sinov uchun
 </script>
 </body>
 </html>
