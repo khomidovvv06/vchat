@@ -11,10 +11,10 @@
 
   function rand(n) { return crypto.getRandomValues(new Uint8Array(n)); }
   function newRoomId() { return Array.from(rand(16), b => ALPH32[b & 31]).join(''); }
-  function newCode() { return Array.from(rand(8), b => CODE_ALPH[b & 31]).join(''); }
+  function newCode() { return Array.from(rand(12), b => CODE_ALPH[b & 31]).join(''); }
   function newId() { return Array.from(rand(8), b => b.toString(16).padStart(2, '0')).join(''); }
   function normCode(c) { return String(c || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); }
-  function prettyCode(c) { c = normCode(c); return c.length > 4 ? c.slice(0, 4) + '-' + c.slice(4) : c; }
+  function prettyCode(c) { c = normCode(c); return (c.match(/.{1,4}/g) || []).join('-'); }
 
   function parseRoom(input) {
     const s = String(input || '').trim();
@@ -59,6 +59,13 @@
     const all = unb64(str.slice(3));
     const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: all.slice(0, 12) }, key, all.slice(12));
     return JSON.parse(td.decode(pt));
+  }
+
+  // PIN xeshi (PIN telefonda ochiq holda saqlanmaydi)
+  async function hashPin(pin, salt) {
+    const base = await crypto.subtle.importKey('raw', te.encode(String(pin)), 'PBKDF2', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: te.encode('vchat-pin:' + salt), iterations: 150000, hash: 'SHA-256' }, base, 256);
+    return b64(new Uint8Array(bits));
   }
 
   function topicUrl(room) { return NTFY + PREFIX + room; }
@@ -112,5 +119,5 @@
     return { close() { closed = true; es && es.close(); } };
   }
 
-  G.VCore = { newRoomId, newCode, newId, normCode, prettyCode, parseRoom, getKey, encrypt, decrypt, publish, poll, verify, subscribe };
+  G.VCore = { newRoomId, newCode, newId, normCode, prettyCode, parseRoom, getKey, encrypt, decrypt, publish, poll, verify, subscribe, hashPin };
 })(typeof window !== 'undefined' ? window : globalThis);

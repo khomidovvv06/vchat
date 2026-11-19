@@ -25,14 +25,14 @@ h2{font-size:21px;font-weight:600}
 .muted{color:var(--muted);font-size:14.5px;line-height:1.45}
 .inp{width:100%;background:var(--panel2);border:1.5px solid transparent;border-radius:12px;padding:14px;font-size:17px;outline:none}
 .inp:focus{border-color:var(--accent)}
-.inp.code{text-align:center;letter-spacing:4px;font-size:22px;font-weight:600;text-transform:uppercase}
+.inp.code{text-align:center;letter-spacing:2px;font-size:20px;font-weight:600;text-transform:uppercase}
 .btn{width:100%;background:var(--accent);color:#fff;border-radius:12px;padding:14px;font-weight:600;font-size:16px}
 .btn:active{opacity:.85}.btn:disabled{opacity:.5}
 .btn.sec{background:var(--panel2);color:var(--accent)}
 .btn.danger{background:var(--panel2);color:var(--red)}
 .err{color:var(--red);font-size:14px;min-height:18px}
 .codebox{background:var(--panel2);border-radius:14px;padding:18px;width:100%}
-.codebox .c{font-size:32px;letter-spacing:5px;font-weight:700;font-family:monospace;color:#fff}
+.codebox .c{font-size:25px;letter-spacing:2px;font-weight:700;font-family:monospace;color:#fff}
 .linkbox{background:var(--panel2);border-radius:12px;padding:12px;width:100%;font-family:monospace;font-size:13px;word-break:break-all;color:var(--accent);text-align:left}
 .warn{background:rgba(229,170,91,.12);color:#e5c27a;border-radius:12px;padding:12px;font-size:13.5px;line-height:1.4;text-align:left;width:100%}
 .row2{display:flex;gap:10px;width:100%}
@@ -82,6 +82,19 @@ h2{font-size:21px;font-weight:600}
 .modal .box p{color:var(--muted);line-height:1.45;font-size:15px}
 .spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:inline-block;vertical-align:middle}
 @keyframes sp{to{transform:rotate(360deg)}}
+#pin{position:fixed;inset:0;background:var(--bg);z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:20px}
+#pin.on{display:flex}
+#pin h2{text-align:center}
+.dots{display:flex;gap:18px;height:20px}
+.dots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--muted)}
+.dots i.f{background:var(--accent);border-color:var(--accent)}
+.dots.shake{animation:sh .35s}
+@keyframes sh{20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.pad{display:grid;grid-template-columns:repeat(3,76px);gap:14px}
+.pad button{width:76px;height:76px;border-radius:50%;background:var(--panel2);font-size:28px;font-weight:500}
+.pad button:active{background:#2c3e52}
+.pad button.x{background:none;font-size:15px;color:var(--muted)}
+.link{color:var(--accent);font-size:14.5px}
 </style>
 </head>
 <body>
@@ -138,8 +151,8 @@ h2{font-size:21px;font-weight:600}
   <div class="top"><button class="ib" data-back><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><h1 id="unTitle">Kodni kiriting</h1></div>
   <div class="body center">
     <div class="big-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-    <p class="muted" id="unText">Chatni ochish uchun 8 belgili kodni kiriting.</p>
-    <input class="inp code" id="unCode" placeholder="XXXX-XXXX" maxlength="9" autocomplete="off" autocapitalize="characters">
+    <p class="muted" id="unText">Chatni ochish uchun 12 belgili kodni kiriting.</p>
+    <input class="inp code" id="unCode" placeholder="XXXX-XXXX-XXXX" maxlength="14" autocomplete="off" autocapitalize="characters">
     <button class="btn" id="unGo">Ochish</button>
     <div class="err" id="unErr"></div>
   </div>
@@ -152,7 +165,7 @@ h2{font-size:21px;font-weight:600}
     <p class="muted" style="margin-top:10px">Do'stingiz yuborgan taklif havolasini qo'ying:</p>
     <div class="row2"><input class="inp" id="joinLink" placeholder="Taklif havolasi" autocomplete="off" style="flex:1;font-size:15px"><button class="btn sec" id="joinPaste" style="width:auto;padding:0 16px">Qo'yish</button></div>
     <p class="muted">Va do'stingiz aytgan kodni kiriting:</p>
-    <input class="inp code" id="joinCode" placeholder="XXXX-XXXX" maxlength="9" autocomplete="off" autocapitalize="characters">
+    <input class="inp code" id="joinCode" placeholder="XXXX-XXXX-XXXX" maxlength="14" autocomplete="off" autocapitalize="characters">
     <button class="btn" id="joinGo">Chatga kirish</button>
     <div class="err" id="joinErr"></div>
   </div>
@@ -178,6 +191,15 @@ h2{font-size:21px;font-weight:600}
   <button id="mCode">🔑 Kodni ko'rsatish</button>
   <button id="mRename">✏️ Chat nomini o'zgartirish</button>
   <button id="mDelete" class="red">🗑 Chatni telefondan o'chirish</button>
+</div>
+
+<div id="pin">
+  <div class="big-ic" style="margin:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+  <h2 id="pinT">PIN-kodni kiriting</h2>
+  <p class="muted" id="pinP" style="text-align:center;min-height:20px"></p>
+  <div class="dots" id="pinDots"><i></i><i></i><i></i><i></i></div>
+  <div class="pad" id="pad"></div>
+  <button class="link" id="pinForgot">PIN-kodni unutdingizmi?</button>
 </div>
 
 <div class="modal" id="modal"><div class="box"><h2 id="moT"></h2><p id="moP"></p><input class="inp" id="moI" style="display:none"><div class="row2" id="moB"></div></div></div>
@@ -237,7 +259,7 @@ document.querySelectorAll('[data-back]').forEach(b=>b.onclick=back);
 function modal({title,text,input,buttons}){
   $('#moT').textContent=title||'';$('#moP').innerHTML=text||'';
   const i=$('#moI');i.style.display=input!=null?'block':'none';i.value=input||'';
-  const b=$('#moB');b.innerHTML='';
+  const b=$('#moB');b.innerHTML='';b.style.flexDirection=buttons.length>2?'column':'row';
   buttons.forEach(x=>{const e=document.createElement('button');e.className='btn '+(x.cls||'');e.textContent=x.label;e.onclick=()=>{closeModal();x.fn&&x.fn(i.value)};b.appendChild(e)});
   $('#modal').classList.add('on');if(input!=null)setTimeout(()=>i.focus(),50);
 }
@@ -246,9 +268,10 @@ function closeModal(){$('#modal').classList.remove('on')}
 /* ---------- 1. ism ---------- */
 $('#setupGo').onclick=()=>{
   const n=$('#setupName').value.trim();if(!n){$('#setupName').focus();return}
-  st.me={id:V.newId(),name:n};save();show('home',false);handlePending();
+  st.me={id:V.newId(),name:n};save();pinSet(()=>{unlocked=true;show('home',false);handlePending()});
 };
-$('#homeName').onclick=()=>modal({title:'Ismingiz',text:'Chatdagilar sizni shu ism bilan ko\'radi.',input:st.me.name,buttons:[{label:'Bekor',cls:'sec'},{label:'Saqlash',fn:v=>{if(v.trim()){st.me.name=v.trim();save()}}}]});
+function editName(){modal({title:'Ismingiz',text:'Chatdagilar sizni shu ism bilan ko\'radi.',input:st.me.name,buttons:[{label:'Bekor',cls:'sec'},{label:'Saqlash',fn:v=>{if(v.trim()){st.me.name=v.trim();save()}}}]})}
+$('#homeName').onclick=()=>modal({title:st.me.name,text:'Sozlamalar',buttons:[{label:'✏️ Ismni o\'zgartirish',cls:'sec',fn:()=>setTimeout(editName,50)},{label:'🔑 PIN-kodni o\'zgartirish',cls:'sec',fn:()=>pinChange()},{label:'Yopish'}]});
 
 /* ---------- 2. ro'yxat ---------- */
 function renderHome(){
@@ -307,7 +330,7 @@ $('#joinGo').onclick=async()=>{
   const id=V.parseRoom($('#joinLink').value);
   if(!id){err.textContent='Havola noto\'g\'ri. Do\'stingiz yuborgan havolani to\'liq qo\'ying.';return}
   const code=V.normCode($('#joinCode').value);
-  if(code.length!==8){err.textContent='Kod 8 ta belgidan iborat bo\'lishi kerak';return}
+  if(code.length!==12&&code.length!==8){err.textContent='Kod 12 ta belgidan iborat bo\'lishi kerak';return}
   if(st.rooms[id]){st.rooms[id].unlocked=true;save();openRoom(id);return}
   const btn=$('#joinGo');btn.disabled=true;btn.innerHTML='<span class="spin"></span>';
   try{
@@ -327,7 +350,7 @@ async function finishJoin(id,code,name){
 
 /* ---------- deep link ---------- */
 let pending=null;
-window.onDeepLink=url=>{pending=url;if(st.me)handlePending()};
+window.onDeepLink=url=>{pending=url;if(st.me&&unlocked)handlePending()};
 function handlePending(){
   if(!pending)return;const id=V.parseRoom(pending);pending=null;
   if(!id){toast('Havola noto\'g\'ri');return}
@@ -412,8 +435,55 @@ $('#mRename').onclick=()=>{closeSheet();const r=st.rooms[curRoom];modal({title:'
 $('#mDelete').onclick=()=>{closeSheet();modal({title:'Chatni o\'chirish?',text:'Chat va uning xabarlari faqat sizning telefoningizdan o\'chiriladi.',buttons:[{label:'Bekor',cls:'sec'},{label:'O\'chirish',cls:'danger',fn:()=>{const id=curRoom;subs[id]&&subs[id].close();delete subs[id];delete st.rooms[id];save();show('home',false)}}]})};
 
 /* ---------- start ---------- */
+/* ---------- PIN-qulf ---------- */
+let unlocked=false,pinBuf='',pinMode='',pinFirst='',pinDone=null;
+const pad=$('#pad');
+['1','2','3','4','5','6','7','8','9','','0','⌫'].forEach(k=>{const b=document.createElement('button');b.textContent=k;if(!k)b.style.visibility='hidden';if(k==='⌫')b.className='x';b.onclick=()=>pinKey(k);pad.appendChild(b)});
+function pinShow(mode,title,text){pinMode=mode;pinBuf='';$('#pinT').textContent=title;$('#pinP').textContent=text||'';$('#pinForgot').style.display=mode==='unlock'?'':'none';pinDots();$('#pin').classList.add('on')}
+function pinHide(){$('#pin').classList.remove('on')}
+function pinDots(){[...$('#pinDots').children].forEach((d,i)=>d.classList.toggle('f',i<pinBuf.length))}
+function pinShake(msg){const d=$('#pinDots');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');$('#pinP').textContent=msg;pinBuf='';setTimeout(pinDots,300)}
+function lockWait(){const l=st.pinLock||{n:0,until:0};return Math.max(0,l.until-Date.now())}
+function pinKey(k){
+  if(k==='⌫'){pinBuf=pinBuf.slice(0,-1);pinDots();return}
+  if(pinBuf.length>=4)return;
+  if(pinMode==='unlock'||pinMode==='old'){const w=lockWait();if(w){$('#pinP').textContent=`Juda ko'p urinish. ${Math.ceil(w/1000)} soniya kuting`;return}}
+  pinBuf+=k;pinDots();
+  if(pinBuf.length===4)setTimeout(pinSubmit,120);
+}
+async function pinCheck(p){return (await V.hashPin(p,st.pin.salt))===st.pin.hash}
+async function pinSubmit(){
+  const p=pinBuf;
+  if(pinMode==='set1'){pinFirst=p;pinShow('set2','PIN-kodni takrorlang','Tasdiqlash uchun yana bir marta kiriting')}
+  else if(pinMode==='set2'){
+    if(p!==pinFirst){pinShow('set1','Yangi PIN-kod o\'ylab toping','');pinShake('PIN-kodlar mos kelmadi, qaytadan kiriting');return}
+    const salt=V.newId();st.pin={salt,hash:await V.hashPin(p,salt)};st.pinLock={n:0,until:0};save();pinHide();toast('PIN-kod saqlandi');const f=pinDone;pinDone=null;f&&f();
+  }
+  else{
+    if(await pinCheck(p)){st.pinLock={n:0,until:0};save();
+      if(pinMode==='old'){pinShow('set1','Yangi PIN-kod o\'ylab toping','4 ta raqam')}
+      else{pinHide();const f=pinDone;pinDone=null;f&&f()}}
+    else{const l=st.pinLock||{n:0,until:0};l.n++;if(l.n>=5)l.until=Date.now()+30000*Math.pow(2,l.n-5);st.pinLock=l;save();
+      pinShake(l.n>=5?`Noto'g'ri. ${Math.ceil(lockWait()/1000)} soniya kuting`:`Noto'g'ri PIN-kod (${5-l.n} ta urinish qoldi)`)}
+  }
+}
+function pinSet(done){pinDone=done;pinShow('set1','PIN-kod o\'ylab toping','Ilovani ochish uchun 4 xonali PIN-kod. Uni hech kimga aytmang.')}
+function pinChange(){pinDone=null;pinShow('old','Hozirgi PIN-kodni kiriting','')}
+function lockApp(){if(!st.pin||!unlocked)return;closeModal();closeSheet();pinDone=null;pinShow('unlock','PIN-kodni kiriting','')}
+window.lockApp=lockApp;
+$('#pinForgot').onclick=()=>modal({title:'PIN-kodni unutdingizmi?',text:'PIN-kodni tiklashning yagona yo\'li ilovani tozalash. Barcha chatlar va xabarlar shu telefondan <b>butunlay o\'chadi</b>. Chatlarga qayta kirish uchun do\'stlaringizdan havola va kodni qayta so\'rashingiz kerak bo\'ladi.',buttons:[{label:'Bekor',cls:'sec'},{label:'Hammasini o\'chirish',cls:'danger',fn:()=>{try{localStorage.removeItem('vchat')}catch(e){}location.reload()}}]});
+const _back=window.handleBack;
+window.handleBack=()=>{
+  if(!$('#pin').classList.contains('on'))return _back();
+  // PIN o'zgartirish jarayonidan chiqish mumkin; qulf va birinchi sozlashdan esa yo'q (ilova yopiladi)
+  if(unlocked&&!pinDone&&pinMode!=='unlock'){pinHide();return true}
+  return false;
+};
+
+function startApp(){unlocked=true;show('home',false);Object.keys(st.rooms).forEach(id=>{if(st.rooms[id].unlocked)subscribeRoom(id)});handlePending()}
 if(!st.me)show('setup',false);
-else{show('home',false);Object.keys(st.rooms).forEach(id=>{if(st.rooms[id].unlocked)subscribeRoom(id)})}
+else if(!st.pin){show('home',false);pinSet(startApp)}
+else{show('home',false);pinDone=startApp;pinShow('unlock','PIN-kodni kiriting','')}
 </script>
 </body>
 </html>
