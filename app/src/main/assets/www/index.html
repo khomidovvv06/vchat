@@ -2,7 +2,15 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#17212b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="VChat">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <title>VChat</title>
 <style>
 :root{--bg:#0e1621;--panel:#17212b;--panel2:#1f2c3a;--line:#0b1118;--text:#e9eef3;--muted:#7f91a4;--accent:#5ea5e8;--in:#182533;--out:#2b5278;--green:#4fc76b;--red:#e55b5b}
@@ -12,12 +20,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 input,textarea{font:inherit;color:inherit}
 .screen{position:fixed;inset:0;display:none;flex-direction:column;background:var(--bg)}
 .screen.on{display:flex}
-.top{display:flex;align-items:center;gap:10px;padding:10px;background:var(--panel);min-height:56px;flex-shrink:0}
+.top{display:flex;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 10px 10px;background:var(--panel);min-height:56px;flex-shrink:0}
 .top h1{font-size:19px;font-weight:600;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ib{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--muted);flex-shrink:0}
 .ib:active{background:rgba(255,255,255,.08)}
 .ib svg{width:23px;height:23px}
-.body{flex:1;overflow-y:auto;padding:20px}
+.body{flex:1;overflow-y:auto;padding:20px 20px calc(20px + env(safe-area-inset-bottom))}
 .center{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
 .big-ic{width:88px;height:88px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin:16px 0 4px;color:#fff;font-size:34px;font-weight:600;flex-shrink:0;background-size:cover;background-position:center}
 .big-ic svg{width:44px;height:44px}
@@ -43,7 +51,7 @@ h2{font-size:21px;font-weight:600}
 .time{font-size:12.5px;color:var(--muted)}
 .last{flex:1;color:var(--muted);font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.fab{position:fixed;right:18px;bottom:18px;width:58px;height:58px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.4)}
 .fab svg{width:26px;height:26px}
 .empty{padding:50px 26px}
 .chead{flex:1;min-width:0;display:flex;align-items:center;gap:10px}
@@ -66,7 +74,7 @@ h2{font-size:21px;font-weight:600}
 .bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent)}
 .m.out .bar i{background:#fff}
 .vd{font-size:12px;color:rgba(255,255,255,.65);min-width:32px}
-.comp{display:flex;align-items:flex-end;gap:6px;padding:6px;background:var(--panel);position:relative}
+.comp{display:flex;align-items:flex-end;gap:6px;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:var(--panel);position:relative}
 .comp textarea{flex:1;background:var(--panel2);border:0;border-radius:22px;padding:11px 16px;font-size:16px;outline:none;resize:none;max-height:120px;min-height:44px}
 .send{width:46px;height:46px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;flex-shrink:0;touch-action:none;user-select:none;-webkit-user-select:none;transition:transform .15s}
 .send svg{width:22px;height:22px}
@@ -134,6 +142,7 @@ h2{font-size:21px;font-weight:600}
     <p class="muted">Xabarlar, ovozli xabarlar va qo'ng'iroqlar uchidan-uchiga shifrlanadi. Ularni hatto server ham o'qiy olmaydi.</p>
     <button class="btn white" id="gBtn"><svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Google bilan kirish</button>
     <div class="err" id="loginErr"></div>
+    <div class="muted" id="iosHint" style="display:none;background:var(--panel2);border-radius:12px;padding:12px;text-align:left;font-size:13.5px">🍏 <b>iPhone'da:</b> pastdagi <b>Ulashish ⬆️</b> tugmasini bosing → <b>"Bosh ekranga qo'shish"</b>. Keyin VChat'ni bosh ekrandagi belgidan oching — shunda u oddiy ilovadek ishlaydi.</div>
   </div>
 </section>
 
@@ -237,10 +246,14 @@ const chatIdOf = (a, b) => [a, b].sort().join('_');
 const vibrate = p => { try { native ? native.vibrate(JSON.stringify(p)) : navigator.vibrate && navigator.vibrate(p); } catch (e) {} };
 function shareText() {
   let t = `Men VChat'da yozishaman — xabarlar va qo'ng'iroqlar shifrlangan 🔒\nMeni Gmail orqali toping: ${me.email}`;
-  if (APK_URL) t += `\n\nIlovani yuklab olish:\n${APK_URL}`;
+  if (APK_URL) t += `\n\nAndroid: ${APK_URL}\niPhone: https://${OWNER}.github.io/${REPO}/app/ (Safari'da oching → Ulashish → "Bosh ekranga qo'shish")`;
   return t;
 }
-function share(t) { if (native) native.share(t); else { navigator.clipboard?.writeText(t).catch(() => {}); toast('Nusxalandi'); } }
+function share(t) {
+  if (native) return native.share(t);
+  if (navigator.share) return navigator.share({ text: t }).catch(() => {});
+  navigator.clipboard?.writeText(t).catch(() => {}); toast('Nusxalandi');
+}
 
 /* ---------- navigatsiya ---------- */
 let screen = 'load', stack = [];
@@ -313,6 +326,9 @@ async function getChatKey(chatId, otherUid, fresh) {
 }
 
 /* ---------- kirish ---------- */
+const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+if (!native && isIOS && !standalone) $('#iosHint').style.display = 'block';
 window.onGoogleResult = async r => {
   const btn = $('#gBtn'); btn.disabled = false;
   if (r && r.token) {
@@ -323,8 +339,13 @@ window.onGoogleResult = async r => {
 $('#gBtn').onclick = () => {
   $('#loginErr').textContent = '';
   if (MOCK) return modal({ title: 'Sinov: email', input: '', buttons: [{ label: 'Kirish', fn: v => B.signInWithGoogleToken('mock:' + v.trim()) }] });
-  if (!native) { $('#loginErr').textContent = 'Kirish faqat ilova ichida ishlaydi'; return; }
-  $('#gBtn').disabled = true; native.googleSignIn(CONFIG.webClientId);
+  if (native) { $('#gBtn').disabled = true; native.googleSignIn(CONFIG.webClientId); return; }
+  // veb (iPhone/kompyuter): Google oynasi
+  $('#gBtn').disabled = true;
+  B.signInWithPopup().catch(e => {
+    const c = e.code || e.message || '';
+    if (!/popup-closed|cancelled-popup/.test(c)) $('#loginErr').textContent = c.includes('popup-blocked') ? 'Brauzer oynani to\'sib qo\'ydi. Qayta bosing.' : 'Kirib bo\'lmadi: ' + c;
+  }).finally(() => { $('#gBtn').disabled = false; });
 };
 
 B.onAuth(async user => {
@@ -514,7 +535,7 @@ async function startVoice() {
   try { recStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }); }
   catch (e) { toast('Mikrofonga ruxsat berilmadi'); return; }
   if (!longPress) { recStream.getTracks().forEach(t => t.stop()); return; }
-  const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4'].find(t => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || '';
+  const mime = ['audio/mp4;codecs=mp4a.40.2', 'audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'].find(t => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || '';
   recChunks = []; rec = new MediaRecorder(recStream, mime ? { mimeType: mime, audioBitsPerSecond: 24000 } : { audioBitsPerSecond: 24000 });
   rec.ondataavailable = ev => ev.data.size && recChunks.push(ev.data);
   const r = rec, stream = recStream;
@@ -588,6 +609,7 @@ function ring(on, outgoing) {
   } catch (e) {}
 }
 function callUI(u, status, incoming) {
+  $('#cSpk').style.display = native ? '' : 'none';
   setAv($('#cAv'), u); $('#cName').textContent = u.name; $('#cSt').textContent = status;
   $('#cIn').style.display = incoming ? 'flex' : 'none'; $('#cOn').style.display = incoming ? 'none' : 'flex';
   $('#cMute').classList.remove('on'); $('#cSpk').classList.remove('on');
@@ -626,8 +648,10 @@ function listenRemoteCands(c) {
 async function flushRemoteCands(c) { for (const cand of c.remoteCands.splice(0)) await c.pc.addIceCandidate(cand).catch(() => {}); }
 async function getMic() { try { return await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }); } catch (e) { toast('Mikrofonga ruxsat berilmadi'); return null; } }
 
+function unlockAudio() { const a = $('#remoteAudio'); try { a.muted = false; const p = a.play(); p && p.catch(() => {}); } catch (e) {} }
 async function startCall() {
   if (call || !cur) return;
+  unlockAudio();
   const { chatId, other } = cur;
   const k = await getChatKey(chatId, other, true);
   if (!k) return toast('Suhbatdoshning kaliti topilmadi');
@@ -682,7 +706,7 @@ async function incoming(d) {
 }
 $('#cAccept').onclick = async () => {
   const c = call; if (!c || c.role !== 'in' || c.accepted) return;
-  ring(false);
+  ring(false); unlockAudio();
   c.stream = await getMic(); if (!c.stream) { $('#cDecline').click(); return; }
   c.accepted = true; native && native.callMode(true);
   $('#cIn').style.display = 'none'; $('#cOn').style.display = 'flex'; $('#cSt').textContent = 'Ulanmoqda…';
@@ -757,6 +781,16 @@ function pinChange() { pinDone = null; pinShow('old', 'Hozirgi PIN-kodni kiritin
 window.lockApp = () => { if (!ls.get('pin', null) || !unlocked || call) return; closeModal(); closeSheet(); pinDone = null; pinShow('unlock', 'PIN-kodni kiriting', ''); };
 // PIN unutilsa: shu telefondagi kalit o'chiriladi (aks holda PIN'ni Google orqali chetlab o'tish mumkin bo'lardi)
 $('#pinForgot').onclick = () => modal({ title: 'PIN-kodni unutdingizmi?', text: 'PIN-kodni tiklash uchun shu telefondagi xavfsizlik kaliti <b>o\'chiriladi</b>. Qayta kirganingizdan keyin yangi kalit yaratiladi: <b>eski xabarlar bu telefonda ochilmaydi</b>, yangilari odatdagidek ishlaydi.', buttons: [{ label: 'Bekor', cls: 'sec' }, { label: 'O\'chirish va chiqish', cls: 'danger', fn: async () => { await C.idbDel('dev:' + me.uid); ['pin', 'pinLock', 'read', 'known', 'keyChanged'].forEach(k => ls.set(k, null)); pinHide(); await B.signOut(); location.reload(); } }] });
+
+// veb: 15 soniyadan ko'p fonda bo'lsa PIN so'raladi; service worker
+if (!native) {
+  let hiddenAt = 0;
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) hiddenAt = Date.now();
+    else { if (hiddenAt && Date.now() - hiddenAt > 15000) window.lockApp(); hiddenAt = 0; }
+  });
+  if ('serviceWorker' in navigator && location.protocol === 'https:' && !MOCK) navigator.serviceWorker.register('sw.js').catch(() => {});
+}
 
 window.handleBack = () => {
   if ($('#call').classList.contains('on')) return true;

@@ -9,7 +9,10 @@ export async function init(cfg) {
   A = await import(BASE + 'firebase-auth.js');
   F = await import(BASE + 'firebase-firestore.js');
   const app = appMod.initializeApp(cfg.firebase);
-  auth = A.initializeAuth(app, { persistence: A.indexedDBLocalPersistence });
+  auth = A.initializeAuth(app, {
+    persistence: [A.indexedDBLocalPersistence, A.browserLocalPersistence],
+    popupRedirectResolver: A.browserPopupRedirectResolver
+  });
   try {
     db = F.initializeFirestore(app, { localCache: F.persistentLocalCache({ tabManager: F.persistentSingleTabManager() }) });
   } catch (e) {
@@ -23,6 +26,13 @@ export function onAuth(cb) { return A.onAuthStateChanged(auth, u => cb(userOf(u)
 export async function signInWithGoogleToken(idToken) {
   const cred = A.GoogleAuthProvider.credential(idToken);
   const r = await A.signInWithCredential(auth, cred);
+  return userOf(r.user);
+}
+// Veb-versiya (iPhone) uchun: Google oynasi orqali kirish
+export async function signInWithPopup() {
+  const p = new A.GoogleAuthProvider();
+  p.setCustomParameters({ prompt: 'select_account' });
+  const r = await A.signInWithPopup(auth, p);
   return userOf(r.user);
 }
 export async function signOut() { await A.signOut(auth); }
